@@ -15,6 +15,19 @@
     <!-- jQuery -->
     <script type="text/javascript" src="./assets/js/jquery.js"></script>
 
+    <!-- Electron related -->
+    <script type="text/javascript">
+        if (typeof require === 'function') {
+            var electron = require('electron');
+            var remote = electron.remote;
+            var ipc = electron.ipcRenderer;
+            
+            var autoUpdater = remote.getGlobal('autoUpdater');
+            var win = remote.getGlobal('win');
+            var app = remote.getGlobal('app');
+        }
+    </script>
+
     <!-- Bootstrap core CSS     -->
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
 

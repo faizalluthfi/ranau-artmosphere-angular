@@ -8,6 +8,7 @@ import { IconsComponent }   from './icons/icons.component';
 import { MapsComponent }   from './maps/maps.component';
 import { NotificationsComponent }   from './notifications/notifications.component';
 import { UpgradeComponent }   from './upgrade/upgrade.component';
+import { QuitComponent } from './shared/quit/quit.component';
 
 export const AppRoutes: Routes = [
     {
@@ -15,6 +16,10 @@ export const AppRoutes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
     },
+    {
+        path: 'quit',
+        component: QuitComponent
+    }
     {
         path: 'dashboard',
         component: DashboardComponent

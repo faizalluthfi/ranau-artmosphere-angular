@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { IS_ELECTRON } from 'app/references/is-electron';
+import { Router } from '@angular/router';
 
 declare var $:any;
 
@@ -8,4 +10,14 @@ declare var $:any;
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent{}
+export class AppComponent implements OnInit {
+  constructor(private zone: NgZone, private router: Router) {}
+
+  ngOnInit(): void {
+    if (IS_ELECTRON) {
+      window['ipc'].on('quit-application', () => {
+        this.zone.run(() => this.router.navigate(['/quit']));
+      });
+    }
+  }
+}
