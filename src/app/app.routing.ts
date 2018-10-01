@@ -19,7 +19,7 @@ export const AppRoutes: Routes = [
     {
         path: 'quit',
         component: QuitComponent
-    }
+    },
     {
         path: 'dashboard',
         component: DashboardComponent
