@@ -11,31 +11,24 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="ti-panel"></i>
-                        <p>Stats</p>
-                    </a>
-                </li>
                 <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="ti-bell"></i>
-                            <p class="notification">5</p>
-                            <p>Notifications</p>
+                            &nbsp;
+                            <p>Master</p>
                             <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a href="#">Notification 1</a></li>
-                        <li><a href="#">Notification 2</a></li>
-                        <li><a href="#">Notification 3</a></li>
-                        <li><a href="#">Notification 4</a></li>
-                        <li><a href="#">Another notification</a></li>
+                        <li><a [routerLink]="['/categories']">Kategori</a></li>
+                        <li><a [routerLink]="['/services']">Layanan</a></li>
+                        <li><a [routerLink]="['/compositions']">Bahan</a></li>
                       </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a [routerLink]="['/settings']">
                         <i class="ti-settings"></i>
-                        <p>Settings</p>
+                        &nbsp;
+                        <p>Pengaturan</p>
                     </a>
                 </li>
             </ul>
