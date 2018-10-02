@@ -21,10 +21,57 @@
             var electron = require('electron');
             var remote = electron.remote;
             var ipc = electron.ipcRenderer;
-            
+
             var autoUpdater = remote.getGlobal('autoUpdater');
             var win = remote.getGlobal('win');
             var app = remote.getGlobal('app');
+
+            var path = require('path');
+            var dbpath = remote.getGlobal('dbpath');
+            var appdir = remote.getGlobal('appdir');
+            var knex = require('knex')({
+                client: 'sqlite3',
+                connection: {
+                    filename: dbpath
+                },
+                migrations: {
+                    directory: path.join(appdir, 'migrations'),
+                },
+                seeds: {
+                    directory: path.join(appdir, 'seeds'),
+                },
+                useNullAsDefault: true
+            });
+            var bookshelf = require('bookshelf')(knex);
+            bookshelf.plugin('pagination');
+
+            var Categories = bookshelf.Model.extend({
+                tableName: 'categories',
+                services: function() {
+                    return this.hasMany(Services);
+                }
+            });
+            var Services = bookshelf.Model.extend({
+                tableName: 'services',
+                category: function() {
+                    return this.belongsTo(Categories);
+                }
+            });
+            var Materials = bookshelf.Model.extend({
+                tableName: 'materials'
+            });
+            var Transactions = bookshelf.Model.extend({
+                tableName: 'transactions',
+                items: function() {
+                    return this.hasMany(TransactionItems);
+                }
+            });
+            var TransactionItems = bookshelf.Model.extend({
+                tableName: 'transaction_items',
+                transaction: function() {
+                    return this.belongsTo(Transactions);
+                }
+            });
         }
     </script>
 
