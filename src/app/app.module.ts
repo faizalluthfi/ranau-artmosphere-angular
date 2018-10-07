@@ -19,6 +19,7 @@ import { MapsComponent }   from './maps/maps.component';
 import { NotificationsComponent }   from './notifications/notifications.component';
 import { UpgradeComponent }   from './upgrade/upgrade.component';
 import { QuitComponent } from './shared/quit/quit.component';
+import { CategoriesListComponent } from './categories-list/categories-list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { QuitComponent } from './shared/quit/quit.component';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    QuitComponent
+    QuitComponent,
+    CategoriesListComponent
   ],
   imports: [
     BrowserModule,
