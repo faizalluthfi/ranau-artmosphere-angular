@@ -10,8 +10,17 @@ export class CategoryService {
 
   constructor() { }
 
+  getCategory(id: number) {
+    return window['Categories'].where('id', id).fetch();
+  }
+
   createCategory(category: Category) {
     return new window['Categories']()
+      .save(category);
+  }
+
+  updateCategory(category: Category): any {
+    return new window['Categories']('id', category.id)
       .save(category);
   }
 }
