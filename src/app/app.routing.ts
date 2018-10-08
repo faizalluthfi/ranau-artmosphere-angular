@@ -10,6 +10,7 @@ import { NotificationsComponent }   from './notifications/notifications.componen
 import { UpgradeComponent }   from './upgrade/upgrade.component';
 import { QuitComponent } from './shared/quit/quit.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { NewCategoryComponent } from './new-category/new-category.component';
 
 export const AppRoutes: Routes = [
     {
@@ -19,7 +20,13 @@ export const AppRoutes: Routes = [
     },
     {
         path: 'categories',
-        component: CategoriesListComponent
+        component: CategoriesListComponent,
+        children: [
+            {
+                path: 'new',
+                component: NewCategoryComponent
+            }
+        ]
     },
     {
         path: 'quit',
