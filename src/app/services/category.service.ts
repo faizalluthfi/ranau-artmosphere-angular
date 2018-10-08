@@ -23,4 +23,9 @@ export class CategoryService {
     return new window['Categories']('id', category.id)
       .save(category);
   }
+
+  deleteCategory(id: number) {
+    return new window['Categories']('id', id)
+      .save({deleted: true});
+  }
 }

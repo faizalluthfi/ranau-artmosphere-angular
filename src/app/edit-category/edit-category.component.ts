@@ -37,4 +37,9 @@ export class EditCategoryComponent implements OnInit {
     this.router.navigate(['..'], {relativeTo: this.route});
   }
 
+  delete() {
+    this.service.deleteCategory(this.category.id).tap(() => this.categoriesService.getCategories());
+    this.router.navigate(['..'], {relativeTo: this.route});
+  }
+
 }

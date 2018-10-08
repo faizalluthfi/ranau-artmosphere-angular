@@ -12,6 +12,7 @@ export class CategoriesService {
 
   getCategories() {
     return new window['Categories']()
+      .where('deleted', null)
       .orderBy('name')
       .fetchAll()
       .then(result => {
