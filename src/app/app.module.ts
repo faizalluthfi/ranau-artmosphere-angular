@@ -22,6 +22,7 @@ import { QuitComponent } from './shared/quit/quit.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UpgradeComponent,
     QuitComponent,
     CategoriesListComponent,
-    NewCategoryComponent
+    NewCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,
