@@ -9,12 +9,17 @@ import { MapsComponent }   from './maps/maps.component';
 import { NotificationsComponent }   from './notifications/notifications.component';
 import { UpgradeComponent }   from './upgrade/upgrade.component';
 import { QuitComponent } from './shared/quit/quit.component';
+import { CategoriesListComponent } from './categories-list/categories-list.component';
 
 export const AppRoutes: Routes = [
     {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
+    },
+    {
+        path: 'categories',
+        component: CategoriesListComponent
     },
     {
         path: 'quit',
