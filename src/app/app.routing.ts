@@ -11,6 +11,7 @@ import { UpgradeComponent }   from './upgrade/upgrade.component';
 import { QuitComponent } from './shared/quit/quit.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 export const AppRoutes: Routes = [
     {
@@ -25,6 +26,10 @@ export const AppRoutes: Routes = [
             {
                 path: 'new',
                 component: NewCategoryComponent
+            },
+            {
+                path: ':id',
+                component: EditCategoryComponent
             }
         ]
     },

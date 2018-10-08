@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="header">
+    <div class="pull-right">
+      <a [routerLink]="['..']"><i class="ti-close"></i></a>
+    </div>
+    <h4 class="title">Edit Kategori</h4>
+  </div>
+  <div class="content">
+    <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="category">
+      <div class="form-group">
+        <input type="text" class="form-control border-input" formControlName="name" [(ngModel)]="category.name">
+      </div>
+      <div class="text-right">
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+          <i class="ti-check"></i>
+          Simpan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
