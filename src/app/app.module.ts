@@ -20,6 +20,7 @@ import { NotificationsComponent }   from './notifications/notifications.componen
 import { UpgradeComponent }   from './upgrade/upgrade.component';
 import { QuitComponent } from './shared/quit/quit.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { NewCategoryComponent } from './new-category/new-category.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CategoriesListComponent } from './categories-list/categories-list.compo
     NotificationsComponent,
     UpgradeComponent,
     QuitComponent,
-    CategoriesListComponent
+    CategoriesListComponent,
+    NewCategoryComponent
   ],
   imports: [
     BrowserModule,
