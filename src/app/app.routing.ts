@@ -9,12 +9,29 @@ import { MapsComponent }   from './maps/maps.component';
 import { NotificationsComponent }   from './notifications/notifications.component';
 import { UpgradeComponent }   from './upgrade/upgrade.component';
 import { QuitComponent } from './shared/quit/quit.component';
+import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { NewCategoryComponent } from './new-category/new-category.component';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 export const AppRoutes: Routes = [
     {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
+    },
+    {
+        path: 'categories',
+        component: CategoriesListComponent,
+        children: [
+            {
+                path: 'new',
+                component: NewCategoryComponent
+            },
+            {
+                path: ':id',
+                component: EditCategoryComponent
+            }
+        ]
     },
     {
         path: 'quit',

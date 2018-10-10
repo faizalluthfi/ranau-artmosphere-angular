@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-{{route.children.length > 0 ? 6 : 12}}">
+    <div class="card">
+      <div class="header">
+        <h4 class="title">Kategori</h4>
+      </div>
+      <div class="content">
+        
+        <div class="text-right">
+          <a class="btn btn-primary" [routerLink]="['new']">
+            <i class="ti-plus"></i>
+            Baru
+          </a>
+        </div>
+        <br>
+      
+        <ng-container *ngIf="categories">
+          <div *ngIf="categories.length > 0; else noCategories" class="table-responsive">
+            <table class="table table-bordered table-condensed table-striped">
+              <tbody>
+                <tr *ngFor="let category of categories" [routerLink]="[category.id]" routerLinkActive="info">
+                  <td>{{category.name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="route.children.length > 0"><router-outlet></router-outlet></div>
+</div>
+<ng-template #noCategories>
+  <p>Data kategori kosong.</p>
+</ng-template>

@@ -19,6 +19,11 @@ import { MapsComponent }   from './maps/maps.component';
 import { NotificationsComponent }   from './notifications/notifications.component';
 import { UpgradeComponent }   from './upgrade/upgrade.component';
 import { QuitComponent } from './shared/quit/quit.component';
+import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { NewCategoryComponent } from './new-category/new-category.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { ServicesInputsComponent } from './services-inputs/services-inputs.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,11 @@ import { QuitComponent } from './shared/quit/quit.component';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    QuitComponent
+    QuitComponent,
+    CategoriesListComponent,
+    NewCategoryComponent,
+    EditCategoryComponent,
+    ServicesInputsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +49,9 @@ import { QuitComponent } from './shared/quit/quit.component';
     NavbarModule,
     FooterModule,
     FixedPluginModule,
-    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE'})
-
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE'}),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

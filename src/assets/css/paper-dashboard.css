@@ -1304,12 +1304,12 @@ textarea.form-control {
   padding: 0;
   width: 15px;
 }
-.table > thead > tr > th,
-.table > tbody > tr > th,
-.table > tfoot > tr > th,
-.table > thead > tr > td,
-.table > tbody > tr > td,
-.table > tfoot > tr > td {
+.table:not(.table-condensed) > thead > tr > th,
+.table:not(.table-condensed) > tbody > tr > th,
+.table:not(.table-condensed) > tfoot > tr > th,
+.table:not(.table-condensed) > thead > tr > td,
+.table:not(.table-condensed) > tbody > tr > td,
+.table:not(.table-condensed) > tfoot > tr > td {
   padding: 12px;
   vertical-align: middle;
 }
@@ -1342,12 +1342,12 @@ textarea.form-control {
 .table-striped tbody > tr:nth-of-type(2n) {
   background-color: #FFFCF5;
 }
-.table-striped > thead > tr > th,
-.table-striped > tbody > tr > th,
-.table-striped > tfoot > tr > th,
-.table-striped > thead > tr > td,
-.table-striped > tbody > tr > td,
-.table-striped > tfoot > tr > td {
+.table-striped:not(.table-condensed) > thead > tr > th,
+.table-striped:not(.table-condensed) > tbody > tr > th,
+.table-striped:not(.table-condensed) > tfoot > tr > th,
+.table-striped:not(.table-condensed) > thead > tr > td,
+.table-striped:not(.table-condensed) > tbody > tr > td,
+.table-striped:not(.table-condensed) > tfoot > tr > td {
   padding: 15px 8px;
 }
 
