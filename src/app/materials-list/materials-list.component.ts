@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Material } from '../classes/material';
+import { MaterialsService } from '../services/materials.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-materials-list',
@@ -6,10 +10,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./materials-list.component.scss']
 })
 export class MaterialsListComponent implements OnInit {
+  materials: Material[];
+  subscriptions: Subscription[] = [];
 
-  constructor() { }
+  constructor(private categoriesService: MaterialsService, public route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.subscriptions = this.subscriptions.concat([
+      this.categoriesService.result.subscribe(result => {
+        this.materials = result.models.map(model => model.attributes);
+      })
+    ]);
+    this.categoriesService.getMaterials();
   }
 
 }

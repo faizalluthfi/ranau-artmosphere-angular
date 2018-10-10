@@ -12,6 +12,7 @@ import { QuitComponent } from './shared/quit/quit.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { MaterialsListComponent } from './materials-list/materials-list.component';
 
 export const AppRoutes: Routes = [
     {
@@ -33,6 +34,10 @@ export const AppRoutes: Routes = [
             }
         ]
     },
+    {
+        path: 'materials',
+        component: MaterialsListComponent
+    }
     {
         path: 'quit',
         component: QuitComponent
