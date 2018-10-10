@@ -23,6 +23,7 @@ import { CategoriesListComponent } from './categories-list/categories-list.compo
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { ServicesInputsComponent } from './services-inputs/services-inputs.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { EditCategoryComponent } from './edit-category/edit-category.component';
     QuitComponent,
     CategoriesListComponent,
     NewCategoryComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ServicesInputsComponent
   ],
   imports: [
     BrowserModule,
