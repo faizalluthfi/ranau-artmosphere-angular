@@ -24,6 +24,9 @@ import { NewCategoryComponent } from './new-category/new-category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { ServicesInputsComponent } from './services-inputs/services-inputs.component';
+import { NewMaterialComponent } from './new-material/new-material.component';
+import { EditMaterialComponent } from './edit-material/edit-material.component';
+import { MaterialsListComponent } from './materials-list/materials-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { ServicesInputsComponent } from './services-inputs/services-inputs.compo
     CategoriesListComponent,
     NewCategoryComponent,
     EditCategoryComponent,
-    ServicesInputsComponent
+    ServicesInputsComponent,
+    NewMaterialComponent,
+    EditMaterialComponent,
+    MaterialsListComponent
   ],
   imports: [
     BrowserModule,
