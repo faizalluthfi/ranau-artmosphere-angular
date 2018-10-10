@@ -1,4 +1,4 @@
-export class Category {
+export class Material {
   id: number;
   name: string;
   deleted: boolean;
