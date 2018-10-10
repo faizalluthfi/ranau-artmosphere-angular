@@ -1,10 +1,12 @@
-import { Service } from "./service";
+import { Category } from "./category";
 
-export class Category {
+export class Service {
   id: number;
   name: string;
+  price: number;
   deleted: boolean;
-  services: Service[] = [];
+  category_id: number;
+  category: Category;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

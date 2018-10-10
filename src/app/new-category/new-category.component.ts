@@ -21,7 +21,8 @@ export class NewCategoryComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.form = formBuilder.group({
-      name: [null, Validators.required]
+      name: [null, Validators.required],
+      services: formBuilder.array([])
     });
   }
 

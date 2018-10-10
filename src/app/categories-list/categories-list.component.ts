@@ -18,7 +18,6 @@ export class CategoriesListComponent implements OnInit {
   ngOnInit() {
     this.subscriptions = this.subscriptions.concat([
       this.categoriesService.result.subscribe(result => {
-        console.log(result);
         this.categories = result.models.map(model => model.attributes);
       })
     ]);
