@@ -29,19 +29,8 @@
             var path = require('path');
             var dbpath = remote.getGlobal('dbpath');
             var appdir = remote.getGlobal('appdir');
-            var knex = require('knex')({
-                client: 'sqlite3',
-                connection: {
-                    filename: dbpath
-                },
-                migrations: {
-                    directory: path.join(appdir, 'migrations'),
-                },
-                seeds: {
-                    directory: path.join(appdir, 'seeds'),
-                },
-                useNullAsDefault: true
-            });
+            var knexConfig = remote.getGlobal('knexConfig');
+            var knex = require('knex')(knexConfig);
             var bookshelf = require('bookshelf')(knex);
             bookshelf.plugin('pagination');
 
