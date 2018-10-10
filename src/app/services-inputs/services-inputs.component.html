@@ -4,8 +4,8 @@
       <td colspan="2">Layanan dengan kategori ini masih belum tersedia. Tekan &quot;Tambah Layanan&quot; untuk menambah layanan.</td>
     </tr>
     <ng-container formArrayName="services">
-      <ng-container *ngFor="let service of form.controls.services.controls; let i = index" [formGroupName]="i">
-        <tr *ngIf="!form.controls.services.controls[i].value.deleted">
+      <ng-container *ngFor="let service of services.controls; let i = index" [formGroupName]="i">
+        <tr *ngIf="!services.controls[i].value.deleted">
           <td>
             <input type="text" class="form-control border-input" formControlName="name">
           </td>
@@ -32,13 +32,13 @@
       </td>
     </tr>
     <ng-container formArrayName="services">
-      <ng-container *ngFor="let service of form.controls.services.controls; let i = index" [formGroupName]="i">
-        <tr *ngIf="form.controls.services.controls[i].value.deleted">
+      <ng-container *ngFor="let service of services.controls; let i = index" [formGroupName]="i">
+        <tr *ngIf="services.controls[i].value.deleted">
           <td>
-            {{form.controls.services.controls[i].value.name}}
+            {{services.controls[i].value.name}}
           </td>
           <td width="50">
-            <button class="btn btn-danger" type="button" (click)="form.controls.services.controls[i].controls.deleted.setValue(null); countServices()">
+            <button class="btn btn-danger" type="button" (click)="services.controls[i].controls.deleted.setValue(null); countServices()">
               <i class="ti-back-right"></i>
             </button>
           </td>

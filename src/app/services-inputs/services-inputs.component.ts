@@ -13,10 +13,13 @@ export class ServicesInputsComponent implements OnInit {
   notDeletedAccount: number = 0;
   deletedCount: number = 0;
 
+  services: FormArray;
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.countServices();
+    this.services = <FormArray>this.form.controls.services;
   }
 
   addService() {
