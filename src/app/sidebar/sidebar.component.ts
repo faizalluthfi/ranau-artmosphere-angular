@@ -10,7 +10,7 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: 'dashboard', title: 'Transaksi',  icon: 'ti-layout', class: '' },
+    { path: 'transactions', title: 'Transaksi',  icon: 'ti-layout', class: '' },
 ];
 
 @Component({

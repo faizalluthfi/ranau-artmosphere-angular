@@ -16,12 +16,17 @@ import { MaterialsListComponent } from './materials-list/materials-list.componen
 import { NewMaterialComponent } from './new-material/new-material.component';
 import { EditMaterialComponent } from './edit-material/edit-material.component';
 import { SettingComponent } from './setting/setting.component';
+import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 
 export const AppRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'transactions',
         pathMatch: 'full',
+    },
+    {
+        path: 'transactions',
+        component: TransactionsListComponent
     },
     {
         path: 'categories',
