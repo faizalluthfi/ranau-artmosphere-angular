@@ -27,6 +27,7 @@ import { ServicesInputsComponent } from './services-inputs/services-inputs.compo
 import { NewMaterialComponent } from './new-material/new-material.component';
 import { EditMaterialComponent } from './edit-material/edit-material.component';
 import { MaterialsListComponent } from './materials-list/materials-list.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MaterialsListComponent } from './materials-list/materials-list.componen
     ServicesInputsComponent,
     NewMaterialComponent,
     EditMaterialComponent,
-    MaterialsListComponent
+    MaterialsListComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h4 class="title">Pengaturan Klien</h4>
+      </div>
+      <div class="content">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="form-horizontal">
+          <div class="form-group">
+            <label for="setting-printer-path" class="control-label col-sm-4 col-xs-6 text-left">Path Printer</label>
+            <div class="col-sm-8 col-xs-6">
+              <div [class.input-group]="form.value.printer_path">
+                <input formControlName="printer_path" id="setting-printer-path" class="form-control border-input" type="text">
+                <span class="input-group-btn" *ngIf="form.value.printer_path">
+                  <button type="button" class="btn btn-secondary" (click)="testPrinterPath()">Tes</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="setting-printer-cpl" class="control-label col-sm-4 col-xs-6 text-left">Karakter Perbaris Printer</label>
+            <div class="col-sm-8 col-xs-6">
+              <input formControlName="printer_cpl" id="setting-printer-cpl" class="form-control border-input" type="text">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-12 text-right">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Simpan
+                <i class="ti-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

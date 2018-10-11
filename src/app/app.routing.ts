@@ -15,6 +15,7 @@ import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { MaterialsListComponent } from './materials-list/materials-list.component';
 import { NewMaterialComponent } from './new-material/new-material.component';
 import { EditMaterialComponent } from './edit-material/edit-material.component';
+import { SettingComponent } from './setting/setting.component';
 
 export const AppRoutes: Routes = [
     {
@@ -49,6 +50,10 @@ export const AppRoutes: Routes = [
                 component: EditMaterialComponent
             }
         ]
+    },
+    {
+        path: 'settings',
+        component: SettingComponent
     },
     {
         path: 'quit',
