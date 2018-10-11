@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Material } from '../classes/material';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { MaterialService } from '../services/material.service';
+import { MaterialsService } from '../services/materials.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-material',
@@ -6,10 +11,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-material.component.scss']
 })
 export class EditMaterialComponent implements OnInit {
+  material: Material;
+  form: FormGroup;
 
-  constructor() { }
+  constructor(
+    formBuilder: FormBuilder,
+    private service: MaterialService,
+    private materialsService: MaterialsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.form = formBuilder.group({
+      name: [null, Validators.required]
+    });
+  }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.service.getMaterial(params.id).then(material => {
+        this.material = material;
+        this.form.patchValue(this.material);
+        this.form.markAsPristine();
+      });
+    });
+  }
+
+  submit() {
+    this.service.updateMaterial(this.material.id, this.form.value).tap(() => this.materialsService.getMaterials());
+    this.router.navigate(['..'], {relativeTo: this.route});
+  }
+
+  delete() {
+    if (window.confirm('Apakah anda yakin akan menghapus bahan ini?')) {
+      this.service.deleteMaterial(this.material.id).tap(() => this.materialsService.getMaterials());
+      this.router.navigate(['..'], {relativeTo: this.route});
+    }
   }
 
 }
