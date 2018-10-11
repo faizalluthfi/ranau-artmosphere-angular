@@ -12,6 +12,9 @@ import { QuitComponent } from './shared/quit/quit.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { MaterialsListComponent } from './materials-list/materials-list.component';
+import { NewMaterialComponent } from './new-material/new-material.component';
+import { EditMaterialComponent } from './edit-material/edit-material.component';
 
 export const AppRoutes: Routes = [
     {
@@ -30,6 +33,20 @@ export const AppRoutes: Routes = [
             {
                 path: ':id',
                 component: EditCategoryComponent
+            }
+        ]
+    },
+    {
+        path: 'materials',
+        component: MaterialsListComponent,
+        children: [
+            {
+                path: 'new',
+                component: NewMaterialComponent
+            },
+            {
+                path: ':id',
+                component: EditMaterialComponent
             }
         ]
     },

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-{{route.children.length > 0 ? 6 : 12}}">
+    <div class="card">
+      <div class="header">
+        <h4 class="title">Bahan</h4>
+      </div>
+      <div class="content">
+        
+        <div class="text-right">
+          <a class="btn btn-primary" [routerLink]="['new']">
+            <i class="ti-plus"></i>
+            Baru
+          </a>
+        </div>
+        <br>
+      
+        <ng-container *ngIf="materials">
+          <div *ngIf="materials.length > 0; else noMaterials" class="table-responsive">
+            <table class="table table-bordered table-condensed table-striped">
+              <tbody>
+                <tr *ngFor="let material of materials" [routerLink]="[material.id]" routerLinkActive="info">
+                  <td>{{material.name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="route.children.length > 0"><router-outlet></router-outlet></div>
+</div>
+<ng-template #noMaterials>
+  <p>Data bahan kosong.</p>
+</ng-template>
