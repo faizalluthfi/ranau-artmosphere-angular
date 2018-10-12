@@ -1,7 +1,9 @@
+tr.clickable,
 tr[routerLinkActive] {
     cursor: pointer;
 }
 
+tr.clickable:hover td,
 tr[routerLinkActive]:hover td {
     background-color: #f5f5f5
 }

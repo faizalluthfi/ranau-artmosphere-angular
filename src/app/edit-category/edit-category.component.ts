@@ -40,6 +40,7 @@ export class EditCategoryComponent implements OnInit {
           services.push(this.formBuilder.group({
               id: [null],
               name: [null, Validators.required],
+              price: [null, Validators.required],
               deleted: [null]
             }))
         );

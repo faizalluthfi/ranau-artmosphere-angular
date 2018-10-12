@@ -59,6 +59,9 @@
                 tableName: 'transaction_items',
                 transaction: function() {
                     return this.belongsTo(Transactions);
+                },
+                service: function() {
+                    return this.belongsTo(Services);
                 }
             });
         }

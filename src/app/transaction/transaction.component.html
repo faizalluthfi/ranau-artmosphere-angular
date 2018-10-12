@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h4 class="title">Transaksi</h4>
+        </div>
+        <div class="content">
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <select class="form-control border-input" [(ngModel)]="category" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+                  </select>
+                </div>
+                <div class="table-responsive" *ngIf="category">
+                  <table class="table table-striped table-condensed table-bordered">
+                    <tbody>
+                      <ng-container *ngFor="let service of category.services">
+                        <tr *ngIf="!service.deleted" [class.clickable]="!itemsServicesIds.includes(service.id)" [class.success]="itemsServicesIds.includes(service.id)"
+                          (click)="addItem(service)">
+                          <td>
+                            <div class="pull-right">{{service.price | number}}</div>
+                            {{service.name}}
+                            <div class="clearfix"></div>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="table-responsive" formArrayName="items">
+                  <table class="table table-bordered table-striped table-condensed">
+                    <tbody>
+                      <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i" [class.danger]="item.value.deleted">
+                        <td>
+                          {{transaction.items[i].service.name}}
+                        </td>
+                        <td>
+                          <input type="text" class="form-control border-input" formControlName="nominal" [attr.disabled]="item.value.deleted">
+                        </td>
+                        <td width="50">
+                          <button class="btn btn-secondary" *ngIf="item.value.deleted" type="button" (click)="item.controls.deleted.setValue(null)">
+                            <i class="ti-back-right"></i>
+                          </button>
+                          <button class="btn btn-danger" *ngIf="!item.value.deleted" type="button" (click)="removeItem(i)">
+                            <i class="ti-close"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 text-right">
+                <button class="btn btn-primary" type="submit">
+                  <i class="ti-check"></i>
+                  Simpan
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

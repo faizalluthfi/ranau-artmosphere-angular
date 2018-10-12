@@ -28,6 +28,8 @@ import { NewMaterialComponent } from './new-material/new-material.component';
 import { EditMaterialComponent } from './edit-material/edit-material.component';
 import { MaterialsListComponent } from './materials-list/materials-list.component';
 import { SettingComponent } from './setting/setting.component';
+import { TransactionsListComponent } from './transactions-list/transactions-list.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { SettingComponent } from './setting/setting.component';
     NewMaterialComponent,
     EditMaterialComponent,
     MaterialsListComponent,
-    SettingComponent
+    SettingComponent,
+    TransactionsListComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,
