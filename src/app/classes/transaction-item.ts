@@ -9,6 +9,8 @@ export class TransactionItem {
     transaction: Transaction;
     service: Service;
     nominal: number;
+
+    deleted: boolean;
   
     constructor(values: Object = {}) {
       Object.assign(this, values);
