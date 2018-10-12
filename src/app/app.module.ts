@@ -30,6 +30,7 @@ import { MaterialsListComponent } from './materials-list/materials-list.componen
 import { SettingComponent } from './setting/setting.component';
 import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { PaddingPipe } from './pipes/padding.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     MaterialsListComponent,
     SettingComponent,
     TransactionsListComponent,
-    TransactionComponent
+    TransactionComponent,
+    PaddingPipe
   ],
   imports: [
     BrowserModule,
