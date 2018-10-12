@@ -31,6 +31,7 @@ import { SettingComponent } from './setting/setting.component';
 import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { PaddingPipe } from './pipes/padding.pipe';
+import { TransactionNoteComponent } from './transaction-note/transaction-note.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PaddingPipe } from './pipes/padding.pipe';
     SettingComponent,
     TransactionsListComponent,
     TransactionComponent,
-    PaddingPipe
+    PaddingPipe,
+    TransactionNoteComponent
   ],
   imports: [
     BrowserModule,
