@@ -32,6 +32,7 @@ import { TransactionsListComponent } from './transactions-list/transactions-list
 import { TransactionComponent } from './transaction/transaction.component';
 import { PaddingPipe } from './pipes/padding.pipe';
 import { TransactionNoteComponent } from './transaction-note/transaction-note.component';
+import { DatePipe, DecimalPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,7 @@ import { TransactionNoteComponent } from './transaction-note/transaction-note.co
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe, DecimalPipe, PaddingPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
