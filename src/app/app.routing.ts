@@ -18,6 +18,7 @@ import { EditMaterialComponent } from './edit-material/edit-material.component';
 import { SettingComponent } from './setting/setting.component';
 import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.component';
 
 export const AppRoutes: Routes = [
     {
@@ -36,6 +37,10 @@ export const AppRoutes: Routes = [
     {
         path: 'transactions',
         component: TransactionsListComponent
+    },
+    {
+        path: 'daily-expenses',
+        component: DailyUsesListComponent
     },
     {
         path: 'categories',
