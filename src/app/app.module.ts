@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -30,6 +30,12 @@ import { MaterialsListComponent } from './materials-list/materials-list.componen
 import { SettingComponent } from './setting/setting.component';
 import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { PaddingPipe } from './pipes/padding.pipe';
+import { TransactionNoteComponent } from './transaction-note/transaction-note.component';
+import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
+import localeId from '@angular/common/locales/id';
+
+registerLocaleData(localeId, 'id');
 
 @NgModule({
   declarations: [
@@ -52,7 +58,9 @@ import { TransactionComponent } from './transaction/transaction.component';
     MaterialsListComponent,
     SettingComponent,
     TransactionsListComponent,
-    TransactionComponent
+    TransactionComponent,
+    PaddingPipe,
+    TransactionNoteComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +73,15 @@ import { TransactionComponent } from './transaction/transaction.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'id'
+    },
+    DatePipe,
+    DecimalPipe,
+    PaddingPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

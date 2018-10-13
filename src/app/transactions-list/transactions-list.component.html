@@ -19,7 +19,7 @@
             <table class="table table-bordered table-condensed table-striped">
               <tbody>
                 <tr *ngFor="let transaction of transactions" [routerLink]="[transaction.id]" routerLinkActive="info">
-                  <td>{{transaction.created_at | date}}</td>
+                  <td>{{transaction.created_at | date: 'full'}}</td>
                 </tr>
               </tbody>
             </table>

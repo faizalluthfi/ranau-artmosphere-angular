@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Transaction } from '../classes/transaction';
 import { TransactionService } from '../services/transaction.service';
@@ -8,6 +8,7 @@ import { CategoriesWithServicesService } from '../services/categories-with-servi
 import { Subscription } from 'rxjs';
 import { Service } from '../classes/service';
 import { TransactionItem } from '../classes/transaction-item';
+import { TransactionNoteComponent } from '../transaction-note/transaction-note.component';
 
 @Component({
   selector: 'app-transaction',
@@ -15,6 +16,8 @@ import { TransactionItem } from '../classes/transaction-item';
   styleUrls: ['./transaction.component.scss']
 })
 export class TransactionComponent implements OnInit, OnDestroy {
+  @ViewChild('note') note: TransactionNoteComponent;
+
   form: FormGroup;
   transaction: Transaction;
   items: FormArray;
@@ -28,7 +31,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
     private service: TransactionService,
     private categoriesWithServicesService: CategoriesWithServicesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private zone: NgZone
   ) {
     this.transaction = new Transaction();
     
@@ -101,13 +105,21 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.transaction.id) {
-      this.service.updateTransaction(this.transaction.id, this.form.value)
-        .tap(() => this.router.navigate(['..'], {relativeTo: this.route}));
-    } else {
+    (
+      this.transaction.id ?
+      this.service.updateTransaction(this.transaction.id, this.form.value) :
       this.service.createTransaction(this.form.value)
-        .tap(() => this.router.navigate(['..'], {relativeTo: this.route}));
-    }
+    )
+      .tap(result => {
+        this.service.getTransaction(this.transaction.id || result.id).then(transaction => {
+          this.zone.run(() => {
+            if (!this.transaction.id || window.confirm('Cetak nota?')) {
+              this.note.printNote(transaction);
+            }
+            this.router.navigate(['..'], {relativeTo: this.route});
+          });
+        });
+      });
   }
 
 }

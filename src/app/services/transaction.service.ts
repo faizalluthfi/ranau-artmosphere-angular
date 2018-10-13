@@ -34,6 +34,7 @@ export class TransactionService {
             )
           );
         })
+        return savedTransaction;
       });
   }
 

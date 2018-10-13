@@ -18,6 +18,7 @@ export class SettingComponent implements OnInit {
     private router: Router
   ) {
     this.form = formBuilder.group({
+      printer_top_blank_lines: [null],
       printer_path: [null],
       printer_cpl: [null]
     });
