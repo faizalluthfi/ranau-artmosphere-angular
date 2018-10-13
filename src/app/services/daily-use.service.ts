@@ -13,7 +13,7 @@ export class DailyUseService {
 
   getDailyUse(id: number) {
     return window['DailyUses'].where('id', id)
-      .fetch({withRelated: ['materials']})
+      .fetch({withRelated: ['materials.material']})
       .then(result => {
         return result.toJSON();
       });

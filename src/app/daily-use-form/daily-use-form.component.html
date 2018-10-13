@@ -1,3 +1,51 @@
-<p>
-  daily-use-form works!
-</p>
+<div class="card">
+  <div class="header">
+    <div class="pull-right"><a [routerLink]="['..']"><i class="ti-close"></i></a></div>
+    <h4 class="title">Pengeluaran Harian</h4>
+    <div class="clearfix"></div>
+  </div>
+  <div class="content">
+    <form [formGroup]="form" class="form-horizontal" (ngSubmit)="submit()">
+      <div class="row">
+        <label for="daily-use-created-at" class="control-label col-md-3 col-xs-6 text-left">Tanggal</label>
+        <div class="col-xs-6 form-group">
+          <input type="text"
+            id="daily-use-created-at"
+            placeholder="Tanggal"
+            class="form-control border-input"
+            formControlName="created_at"
+            bsDatepicker>
+        </div>
+      </div>
+      
+      <div class="table-responsive" formArrayName="materials">
+        <table class="table table-bordered table-striped table-condensed">
+          <tbody>
+            <tr *ngFor="let material of materialsInputs.controls; let i = index" [formGroupName]="i">
+              <td>
+                {{dailyUse.materials[i].material.name}}
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm border-input text-right" formControlName="nominal">
+              </td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td class="text-right">{{total | number}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+    
+      <div class="row">
+        <div class="col-xs-12 text-right">
+          <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+            <i class="ti-check"></i>
+            Simpan
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

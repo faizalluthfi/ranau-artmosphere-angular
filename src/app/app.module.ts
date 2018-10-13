@@ -36,6 +36,7 @@ import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.component';
 import { DailyUseFormComponent } from './daily-use-form/daily-use-form.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 registerLocaleData(localeId, 'id');
 
@@ -75,7 +76,8 @@ registerLocaleData(localeId, 'id');
     FixedPluginModule,
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE'}),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     {

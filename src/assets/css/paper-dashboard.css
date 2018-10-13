@@ -1063,10 +1063,12 @@ hr {
   color: #66615b;
   font-size: 14px;
   transition: background-color 0.3s ease 0s;
-  padding: 7px 18px;
-  height: 40px;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+.form-control:not(.input-sm) {
+  padding: 7px 18px;
+  height: 40px;
 }
 .form-control:focus {
   background-color: #FFFFFF;

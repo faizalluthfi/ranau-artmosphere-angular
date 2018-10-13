@@ -19,6 +19,7 @@ import { SettingComponent } from './setting/setting.component';
 import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.component';
+import { DailyUseFormComponent } from './daily-use-form/daily-use-form.component';
 
 export const AppRoutes: Routes = [
     {
@@ -40,7 +41,17 @@ export const AppRoutes: Routes = [
     },
     {
         path: 'daily-expenses',
-        component: DailyUsesListComponent
+        component: DailyUsesListComponent,
+        children: [
+            {
+                path: 'new',
+                component: DailyUseFormComponent
+            },
+            {
+                path: ':id',
+                component: DailyUseFormComponent
+            },
+        ]
     },
     {
         path: 'categories',
