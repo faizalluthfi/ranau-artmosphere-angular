@@ -74,6 +74,9 @@
                 tableName: 'daily_materials_uses',
                 daily_use: function() {
                     return this.belongsTo(DailyUses);
+                },
+                material: function() {
+                    return this.belongsTo(Materials);
                 }
             });
         }
