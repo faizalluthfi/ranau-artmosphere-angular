@@ -30,6 +30,9 @@ import { MaterialsListComponent } from './materials-list/materials-list.componen
 import { SettingComponent } from './setting/setting.component';
 import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { PaddingPipe } from './pipes/padding.pipe';
+import { TransactionNoteComponent } from './transaction-note/transaction-note.component';
+import { DatePipe, DecimalPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,9 @@ import { TransactionComponent } from './transaction/transaction.component';
     MaterialsListComponent,
     SettingComponent,
     TransactionsListComponent,
-    TransactionComponent
+    TransactionComponent,
+    PaddingPipe,
+    TransactionNoteComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,7 @@ import { TransactionComponent } from './transaction/transaction.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe, DecimalPipe, PaddingPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
