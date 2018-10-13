@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-{{route.children.length > 0 ? '6 hidden-sm hidden-xs' : 12}}">
+    <div class="card">
+      <div class="header">
+        <div class="pull-right">
+          <a class="btn btn-primary" [routerLink]="['new']">
+            <i class="ti-plus"></i>
+            Baru
+          </a>
+        </div>
+        <h4 class="title">Pengeluaran Harian</h4>
+        <div class="clearfix"></div>
+      </div>
+      <div class="content">
+      
+        <ng-container *ngIf="dailyUses">
+          <div *ngIf="dailyUses.length > 0; else noTransactions" class="table-responsive">
+            <table class="table table-bordered table-condensed table-striped">
+              <tbody>
+                <tr *ngFor="let dailyUse of dailyUses" [routerLink]="[dailyUse.id]" routerLinkActive="info">
+                  <td>{{dailyUse.created_at | date: 'full'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="route.children.length > 0"><router-outlet></router-outlet></div>
+</div>
+<ng-template #noTransactions>
+  <p>Data pengeluaran harian kosong.</p>
+</ng-template>
