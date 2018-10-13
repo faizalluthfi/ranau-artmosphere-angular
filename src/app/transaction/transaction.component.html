@@ -40,13 +40,13 @@
                           {{transaction.items[i].service.name}}
                         </td>
                         <td>
-                          <input type="text" class="form-control border-input" formControlName="nominal" [attr.disabled]="item.value.deleted">
+                          <input type="text" class="form-control input-sm border-input" formControlName="nominal" [attr.disabled]="item.value.deleted">
                         </td>
                         <td width="50">
-                          <button class="btn btn-secondary" *ngIf="item.value.deleted" type="button" (click)="item.controls.deleted.setValue(null)">
+                          <button class="btn btn-secondary btn-sm" *ngIf="item.value.deleted" type="button" (click)="item.controls.deleted.setValue(null)">
                             <i class="ti-back-right"></i>
                           </button>
-                          <button class="btn btn-danger" *ngIf="!item.value.deleted" type="button" (click)="removeItem(i)">
+                          <button class="btn btn-danger btn-sm" *ngIf="!item.value.deleted" type="button" (click)="removeItem(i)">
                             <i class="ti-close"></i>
                           </button>
                         </td>

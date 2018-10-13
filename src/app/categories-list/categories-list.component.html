@@ -1,19 +1,17 @@
 <div class="row">
-  <div class="col-md-{{route.children.length > 0 ? 6 : 12}}">
+  <div class="col-md-{{route.children.length > 0 ? '6 hidden-sm hidden-xs' : 12}}">
     <div class="card">
       <div class="header">
-        <h4 class="title">Kategori</h4>
-      </div>
-      <div class="content">
-        
-        <div class="text-right">
+        <div class="pull-right">
           <a class="btn btn-primary" [routerLink]="['new']">
             <i class="ti-plus"></i>
             Baru
           </a>
         </div>
-        <br>
-      
+        <h4 class="title">Kategori</h4>
+        <div class="clearfix"></div>
+      </div>
+      <div class="content">
         <ng-container *ngIf="categories">
           <div *ngIf="categories.length > 0; else noCategories" class="table-responsive">
             <table class="table table-bordered table-condensed table-striped">
