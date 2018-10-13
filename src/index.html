@@ -64,6 +64,18 @@
                     return this.belongsTo(Services);
                 }
             });
+            var DailyUses = bookshelf.Model.extend({
+                tableName: 'daily_uses',
+                materials: function() {
+                    return this.hasMany(DailyMaterialsUses);
+                }
+            });
+            var DailyMaterialsUses = bookshelf.Model.extend({
+                tableName: 'daily_materials_uses',
+                daily_use: function() {
+                    return this.belongsTo(DailyUses);
+                }
+            });
         }
     </script>
 
