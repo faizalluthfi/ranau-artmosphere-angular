@@ -43,8 +43,10 @@ export class EditMaterialComponent implements OnInit {
 
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus bahan ini?')) {
-      this.service.deleteMaterial(this.material.id).tap(() => this.materialsService.getMaterials());
-      this.router.navigate(['..'], {relativeTo: this.route});
+      this.service.deleteMaterial(this.material.id).tap(() => {
+        this.materialsService.getMaterials();
+        this.router.navigate(['..'], {relativeTo: this.route});
+      });
     }
   }
 

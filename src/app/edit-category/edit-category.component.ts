@@ -58,8 +58,10 @@ export class EditCategoryComponent implements OnInit {
 
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus kategori ini?')) {
-      this.service.deleteCategory(this.category.id).tap(() => this.categoriesService.getCategories());
-      this.router.navigate(['..'], {relativeTo: this.route});
+      this.service.deleteCategory(this.category.id).tap(() => {
+        this.categoriesService.getCategories();
+        this.router.navigate(['..'], {relativeTo: this.route});
+      });
     }
   }
 

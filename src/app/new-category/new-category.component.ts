@@ -30,8 +30,10 @@ export class NewCategoryComponent implements OnInit {
   }
 
   submit() {
-    this.service.createCategory(this.form.value).tap(() => this.categoriesService.getCategories());
-    this.router.navigate(['..'], {relativeTo: this.route});
+    this.service.createCategory(this.form.value).tap(() => {
+      this.categoriesService.getCategories();
+      this.router.navigate(['..'], {relativeTo: this.route});
+    });
   }
 
 }

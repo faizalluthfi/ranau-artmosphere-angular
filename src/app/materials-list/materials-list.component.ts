@@ -17,8 +17,8 @@ export class MaterialsListComponent implements OnInit {
 
   ngOnInit() {
     this.subscriptions = this.subscriptions.concat([
-      this.materialsService.result.subscribe(result => {
-        this.materials = result.models.map(model => model.attributes);
+      this.materialsService.materials.subscribe(materials => {
+        this.materials = materials;
       })
     ]);
     this.materialsService.getMaterials();

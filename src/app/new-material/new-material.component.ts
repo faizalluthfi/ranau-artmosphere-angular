@@ -28,8 +28,10 @@ export class NewMaterialComponent implements OnInit {
   }
 
   submit() {
-    this.service.createMaterial(this.form.value).tap(() => this.materialsService.getMaterials());
-    this.router.navigate(['..'], {relativeTo: this.route});
+    this.service.createMaterial(this.form.value).tap(() => {
+      this.materialsService.getMaterials();
+      this.router.navigate(['..'], {relativeTo: this.route});
+    });
   }
 
 }

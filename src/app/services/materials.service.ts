@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Material } from 'app/classes/material';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MaterialsService {
-  readonly result: Subject<any> = new Subject<any>();
+  readonly materials: Subject<Material[]> = new Subject<Material[]>();
 
   constructor() { }
 
@@ -15,7 +16,7 @@ export class MaterialsService {
       .orderBy('name')
       .fetchAll()
       .then(result => {
-        this.result.next(result);
+        this.materials.next(result.toJSON());
       });
   }
 }
