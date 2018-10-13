@@ -11,7 +11,7 @@ export class DailyUsesService {
 
   getDailyUses() {
     return new window['DailyUses']()
-      .orderBy('created_at')
+      .orderBy('created_at', 'desc')
       .fetchAll()
       .then(result => {
         this.result.next(result);
