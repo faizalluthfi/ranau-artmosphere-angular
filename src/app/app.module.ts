@@ -34,6 +34,8 @@ import { PaddingPipe } from './pipes/padding.pipe';
 import { TransactionNoteComponent } from './transaction-note/transaction-note.component';
 import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
+import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.component';
+import { DailyUseFormComponent } from './daily-use-form/daily-use-form.component';
 
 registerLocaleData(localeId, 'id');
 
@@ -60,7 +62,9 @@ registerLocaleData(localeId, 'id');
     TransactionsListComponent,
     TransactionComponent,
     PaddingPipe,
-    TransactionNoteComponent
+    TransactionNoteComponent,
+    DailyUsesListComponent,
+    DailyUseFormComponent
   ],
   imports: [
     BrowserModule,
