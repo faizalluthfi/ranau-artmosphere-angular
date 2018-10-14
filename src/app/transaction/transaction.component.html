@@ -24,6 +24,7 @@
                             <div class="pull-right">{{service.price | number}}</div>
                             {{service.name}}
                             <div class="clearfix"></div>
+                            <small *ngIf="service.note">{{service.note}}</small>
                           </td>
                         </tr>
                       </ng-container>
