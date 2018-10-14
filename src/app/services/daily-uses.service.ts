@@ -11,7 +11,7 @@ export class DailyUsesService {
 
   constructor() { }
 
-  getDailyUses(month: moment.Moment = null) 
+  getDailyUses(month: moment.Moment = null) {
     if (month) this.month = month;
     return new window['DailyUses']()
       .query(qb => qb.whereBetween('created_at', [this.month.valueOf(), moment(this.month).endOf('month').valueOf()]))
