@@ -11,7 +11,8 @@
             &nbsp;
             <button class="btn btn-primary" type="button" (click)="printToPdf()"><i class="ti-printer"></i></button>
           </div>
-          <h4 class="title report-title">Percetakan Bulan {{month | date: 'MMMM yyyy'}}</h4>
+          <h4 class="title report-title">Percetakan Bulan <span class="visible-print-inline">{{month | date: 'MMMM yyyy'}}</span></h4>
+          <p class="category hidden-print">{{month | date: 'MMMM yyyy'}}</p>
           <div class="clearfix"></div>
         </div>
         <div class="content">
