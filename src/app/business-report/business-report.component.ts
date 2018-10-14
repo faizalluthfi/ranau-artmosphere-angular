@@ -45,7 +45,7 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
     this.categoriesService.getCategories();
   }
 
-  private loadData() {
+  loadData() {
     this.service.loadTransactionsData(this.month)
       .then(transactionsData => {
         this.service.loadExpensesData(this.month)
