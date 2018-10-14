@@ -37,6 +37,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.transaction = new Transaction();
     
     this.form = formBuilder.group({
+      total: [null],
       items: formBuilder.array([])
     });
     this.items = <FormArray>this.form.controls.items;
@@ -79,11 +80,23 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  get total(): number {
+    let value: number = 0;
+    this.items.controls.forEach(item => {
+      if (!item.value.deleted) {
+        value += parseInt(item.value.nominal) || 0;
+      }
+    });
+    this.form.controls.total.setValue(value);
+    return value;
+  }
+
   addItem(service: Service) {
     if (!this.itemsServicesIds.includes(service.id)) {
       let item = new TransactionItem();
       item.service = service;
       this.transaction.items.push(item);
+      this.itemsServicesIds.push(service.id);
       this.items.push(this.formBuilder.group({
         service_id: [service.id, Validators.required],
         nominal: [service.price, Validators.required],

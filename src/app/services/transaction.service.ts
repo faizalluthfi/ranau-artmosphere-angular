@@ -39,23 +39,30 @@ export class TransactionService {
   }
 
   updateTransaction(id: number, transaction: Transaction): any {
-    return promise.map(transaction.items, item => {
-      if (item.id) {
-        new window['TransactionItems']('id', item.id).save(
-          Object.assign(
-            Object.assign({}, item),
-            {transaction_id: id}
-          )
-        );
-      } else {
-        new window['TransactionItems']().save(
-          Object.assign(
-            Object.assign({}, item),
-            {transaction_id: id}
-          )
-        );
-      }
-    });;
+    let values: any = Object.assign({}, transaction);
+    delete values.items;
+    return new window['Transactions']('id', id)
+      .save(values)
+      .then(result => {
+        promise.map(transaction.items, item => {
+          if (item.id) {
+            new window['TransactionItems']('id', item.id).save(
+              Object.assign(
+                Object.assign({}, item),
+                {transaction_id: id}
+              )
+            );
+          } else {
+            new window['TransactionItems']().save(
+              Object.assign(
+                Object.assign({}, item),
+                {transaction_id: id}
+              )
+            );
+          }
+        });
+        return result.toJSON();
+      })
   }
 
   deleteTransaction(id: number) {
