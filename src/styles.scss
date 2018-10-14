@@ -11,3 +11,18 @@ tr[routerLinkActive]:hover td {
 .form-horizontal .control-label.text-left {
     text-align: left;
 }
+
+@media print {
+  .sidebar,
+  app-pagination {
+    display: none;
+  }
+
+  .main-panel {
+    width: 100%;
+  }
+
+  .report-title {
+    text-align: center;
+  }
+}
