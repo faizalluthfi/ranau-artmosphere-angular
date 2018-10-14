@@ -3,12 +3,18 @@
     <div class="card">
       <div class="header">
         <div class="pull-right">
+          <div class="btn-group">
+            <button class="btn btn-secondary" type="button" (click)="month = previousMonth; loadData()">{{previousMonth | date: 'MMMM yyyy'}}</button>
+            <button class="btn btn-secondary" type="button" (click)="month = nextMonth; loadData()">{{nextMonth | date: 'MMMM yyyy'}}</button>
+          </div>
+          &nbsp;
           <a class="btn btn-primary" [routerLink]="['new']">
             <i class="ti-plus"></i>
             Baru
           </a>
         </div>
         <h4 class="title">Transaksi</h4>
+        <p class="category">{{month | date: 'MMMM yyyy'}}</p>
         <div class="clearfix"></div>
       </div>
       <div class="content">
@@ -30,5 +36,5 @@
   <div class="col-md-6" *ngIf="route.children.length > 0"><router-outlet></router-outlet></div>
 </div>
 <ng-template #noTransactions>
-  <p>Data transaksi kosong.</p>
+  <p>Data transaksi {{month | date: 'MMMM yyyy'}} kosong.</p>
 </ng-template>
