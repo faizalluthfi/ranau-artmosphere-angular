@@ -37,6 +37,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.transaction = new Transaction();
     
     this.form = formBuilder.group({
+      total: [null],
       items: formBuilder.array([])
     });
     this.items = <FormArray>this.form.controls.items;
@@ -86,6 +87,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
         value += parseInt(item.value.nominal) || 0;
       }
     });
+    this.form.controls.total.setValue(value);
     return value;
   }
 

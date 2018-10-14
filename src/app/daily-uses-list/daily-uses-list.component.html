@@ -19,6 +19,7 @@
               <tbody>
                 <tr *ngFor="let dailyUse of dailyUses" [routerLink]="[dailyUse.id]" routerLinkActive="info">
                   <td>{{dailyUse.created_at | date: 'full'}}</td>
+                  <td class="text-right">{{dailyUse.total | number}}</td>
                 </tr>
               </tbody>
             </table>

@@ -37,6 +37,7 @@ export class DailyUseFormComponent implements OnInit {
     this.dailyUse = new DailyUse();
     
     this.form = formBuilder.group({
+      total: [null],
       created_at: [null, Validators.required],
       materials: formBuilder.array([])
     });
@@ -96,6 +97,7 @@ export class DailyUseFormComponent implements OnInit {
   get total(): number {
     let value: number = 0;
     this.materialsInputs.controls.forEach(material => value += parseInt(material.value.nominal) || 0);
+    this.form.controls.total.setValue(value);
     return value;
   }
 
