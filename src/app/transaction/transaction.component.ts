@@ -81,7 +81,11 @@ export class TransactionComponent implements OnInit, OnDestroy {
 
   get total(): number {
     let value: number = 0;
-    this.items.controls.forEach(item => value += parseInt(item.value.nominal) || 0);
+    this.items.controls.forEach(item => {
+      if (!item.value.deleted) {
+        value += parseInt(item.value.nominal) || 0;
+      }
+    });
     return value;
   }
 
