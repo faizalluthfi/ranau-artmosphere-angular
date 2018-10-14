@@ -29,6 +29,8 @@
             var path = require('path');
             var dbpath = remote.getGlobal('dbpath');
             var appdir = remote.getGlobal('appdir');
+            var backupExtension = remote.getGlobal('backupExtension');
+            var dialog = remote.getGlobal('dialog');
             var knexConfig = remote.getGlobal('knexConfig');
             var knex = require('knex')(knexConfig);
             var bookshelf = require('bookshelf')(knex);
