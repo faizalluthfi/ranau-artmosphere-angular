@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { BusinessReportService } from '../services/business-report.service';
 import { AppService } from '../services/app.service';
 import * as moment from 'moment';
@@ -8,6 +8,8 @@ import { Category } from 'app/classes/category';
 import { Subscription } from 'rxjs';
 import { MaterialsService } from '../services/materials.service';
 import { Material } from '../classes/material';
+import * as XLSX from 'xlsx';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-business-report',
@@ -15,17 +17,23 @@ import { Material } from '../classes/material';
   styleUrls: ['./business-report.component.scss']
 })
 export class BusinessReportComponent implements OnInit, OnDestroy {
+  @ViewChild('grid', { read: ElementRef }) grid: ElementRef;
+  @ViewChild('table', {read: ElementRef}) table: ElementRef;
+
   month: Moment;
-  categories: Category[];
-  materials: Material[];
+  categories: Category[] = [];
+  materials: Material[] = [];
   subscriptions: Subscription[];
   data: any[] = [];
 
+  columnDefs: any[];
+  gridApi: any;
+
   constructor(
     private service: BusinessReportService,
-    private appService: AppService,
     private categoriesService: CategoriesService,
-    private materialsService: MaterialsService
+    private materialsService: MaterialsService,
+    private decimalPipe: DecimalPipe
   ) { }
 
   ngOnInit() {
@@ -45,11 +53,61 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
     this.categoriesService.getCategories();
   }
 
+  gridModelUpdated(params) {
+    this.gridApi = params.api;
+    let columnApi = params.columnApi;
+    const allColumnIds = [];
+    const columns = columnApi.getAllColumns() || []
+    columns.forEach(function (column) {
+      allColumnIds.push(column.colId);
+    });
+    columnApi.autoSizeColumns(allColumnIds);
+  }
+
   loadData() {
     this.service.loadTransactionsData(this.month)
       .then(transactionsData => {
         this.service.loadExpensesData(this.month)
           .then(expensesData => {
+            this.columnDefs = [];
+            this.columnDefs.push({
+              headerName: 'Tanggal',
+              field: 'day_of_month'
+            });
+            this.categories.forEach(category => {
+              this.columnDefs.push({
+                headerName: category.name,
+                field: `transactionsData`,
+                cellClass: 'text-right',
+                valueFormatter: data => data.value[category.id] > 0 ? this.decimalPipe.transform(data.value[category.id]) : ''
+              });
+            });
+            this.columnDefs.push({
+              headerName: 'Total',
+              field: 'transactionsTotal',
+              cellClass: 'text-right',
+              valueFormatter: data => data.value > 0 ? this.decimalPipe.transform(data.value) : ''
+            });
+            this.materials.forEach(material => {
+              this.columnDefs.push({
+                headerName: material.name,
+                field: `expensesData`,
+                cellClass: 'text-right',
+                valueFormatter: data => data.value[material.id] > 0 ? this.decimalPipe.transform(data.value[material.id]) : ''
+              });
+            });
+            this.columnDefs.push({
+              headerName: 'Total',
+              field: 'expensesTotal',
+              cellClass: 'text-right',
+              valueFormatter: data => data.value > 0 ? this.decimalPipe.transform(data.value) : ''
+            });
+            this.columnDefs.push({
+              headerName: 'Saldo',
+              field: 'balance',
+              cellClass: 'text-right',
+              valueFormatter: data => data.value > 0 ? this.decimalPipe.transform(data.value) : ''
+            });
             this.data = [];
             for (let i = 1; i <= moment(this.month).endOf('month').date(); i++) {
               let item = {
@@ -98,8 +156,10 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
     return moment(this.month).add(1, 'month');
   }
 
-  printToPdf() {
-    this.appService.sendToIpc('print-to-pdf', {pageSize: {width: 840994, height: 594106}});
+  export() {
+    let sheetName = 'Export';
+    let wb = XLSX.utils.table_to_book(this.table.nativeElement, <any>{raw: true, sheet: sheetName});
+    XLSX.writeFile(wb, 'export.xlsx');
   }
 
 }
