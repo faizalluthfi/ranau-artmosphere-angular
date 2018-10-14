@@ -38,7 +38,6 @@ import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.compon
 import { DailyUseFormComponent } from './daily-use-form/daily-use-form.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BusinessReportComponent } from './business-report/business-report.component';
-import { UpdateIndicatorComponent } from './shared/update-indicator/update-indicator.component';
 
 registerLocaleData(localeId, 'id');
 
@@ -68,8 +67,7 @@ registerLocaleData(localeId, 'id');
     TransactionNoteComponent,
     DailyUsesListComponent,
     DailyUseFormComponent,
-    BusinessReportComponent,
-    UpdateIndicatorComponent
+    BusinessReportComponent
   ],
   imports: [
     BrowserModule,

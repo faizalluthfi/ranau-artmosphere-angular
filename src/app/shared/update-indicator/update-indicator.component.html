@@ -1,3 +1,16 @@
-<p>
-  update-indicator works!
-</p>
+<ng-container *ngIf="status">
+  <button
+    type="button"
+    class="navbar-btn btn btn-primary navbar-right"
+    (click)="applyUpdate()"
+    *ngIf="updateDownloaded; else otherStatus">
+    <i class="ti-reload"></i>
+    {{status}}
+  </button>
+</ng-container>
+
+<ng-template #otherStatus>
+  <p class="navbar-text navbar-right">
+    {{status}}
+  </p>
+</ng-template>
