@@ -7,12 +7,14 @@ import * as moment from 'moment';
 })
 export class DailyUsesService {
   readonly result: Subject<any> = new Subject<any>();
+  month: moment.Moment;
 
   constructor() { }
 
-  getDailyUses(month: moment.Moment) {
+  getDailyUses(month: moment.Moment = null) 
+    if (month) this.month = month;
     return new window['DailyUses']()
-      .query(qb => qb.whereBetween('created_at', [month.valueOf(), moment(month).endOf('month').valueOf()]))
+      .query(qb => qb.whereBetween('created_at', [this.month.valueOf(), moment(this.month).endOf('month').valueOf()]))
       .orderBy('created_at', 'desc')
       .fetchAll()
       .then(result => {
