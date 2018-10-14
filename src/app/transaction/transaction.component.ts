@@ -79,6 +79,12 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  get total(): number {
+    let value: number = 0;
+    this.items.controls.forEach(item => value += parseInt(item.value.nominal) || 0);
+    return value;
+  }
+
   addItem(service: Service) {
     if (!this.itemsServicesIds.includes(service.id)) {
       let item = new TransactionItem();
