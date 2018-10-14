@@ -28,6 +28,7 @@ export class ServicesInputsComponent implements OnInit {
         id: [null],
         name: [null, Validators.required],
         price: [null, Validators.required],
+        note: [null],
         deleted: [null]
       })
     );

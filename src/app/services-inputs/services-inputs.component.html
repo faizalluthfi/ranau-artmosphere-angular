@@ -3,12 +3,13 @@
     <tr>
       <th>Nama</th>
       <th>Harga</th>
+      <th>Keterangan</th>
       <th width="50"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngIf="notDeletedAccount == 0">
-      <td colspan="3">Layanan dengan kategori ini masih belum tersedia. Tekan &quot;Tambah Layanan&quot; untuk menambah layanan.</td>
+      <td colspan="4">Layanan dengan kategori ini masih belum tersedia. Tekan &quot;Tambah Layanan&quot; untuk menambah layanan.</td>
     </tr>
     <ng-container formArrayName="services">
       <ng-container *ngFor="let service of services.controls; let i = index" [formGroupName]="i">
@@ -19,6 +20,9 @@
           <td>
             <input type="text" class="form-control border-input input-sm" formControlName="price">
           </td>
+          <td>
+            <input type="text" class="form-control border-input input-sm" formControlName="note">
+          </td>
           <td class="text-right">
             <button class="btn btn-danger btn-sm" type="button" (click)="removeService(i)">
               <i class="ti-close"></i>
@@ -28,7 +32,7 @@
       </ng-container>
     </ng-container>
     <tr>
-      <td colspan="3" class="text-right">
+      <td colspan="4" class="text-right">
         <button class="btn btn-secondary" type="button" (click)="addService()">
           <i class="ti-plus"></i>
           Tambah Layanan
@@ -36,7 +40,7 @@
       </td>
     </tr>
     <tr *ngIf="deletedCount > 0">
-      <td colspan="3">
+      <td colspan="4">
         <br>
         <b>Dihapus, tekan <i class="ti-back-right"></i> untuk mengembalikan.</b>
       </td>
@@ -49,6 +53,9 @@
           </td>
           <td>
             {{services.controls[i].value.price}}
+          </td>
+          <td>
+            {{services.controls[i].value.note}}
           </td>
           <td>
             <button class="btn btn-danger" type="button" (click)="services.controls[i].controls.deleted.setValue(null); countServices()">
