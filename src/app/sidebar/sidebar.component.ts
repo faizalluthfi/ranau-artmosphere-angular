@@ -12,6 +12,7 @@ export interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: 'transactions', title: 'Transaksi',  icon: 'ti-layout', class: '' },
     { path: 'daily-expenses', title: 'Pengeluaran Harian',  icon: 'ti-list', class: '' },
+    { path: 'report', title: 'Laporan',  icon: 'ti-view-list', class: '' },
 ];
 
 @Component({

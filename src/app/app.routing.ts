@@ -20,12 +20,17 @@ import { TransactionsListComponent } from './transactions-list/transactions-list
 import { TransactionComponent } from './transaction/transaction.component';
 import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.component';
 import { DailyUseFormComponent } from './daily-use-form/daily-use-form.component';
+import { BusinessReportComponent } from './business-report/business-report.component';
 
 export const AppRoutes: Routes = [
     {
         path: '',
         redirectTo: 'transactions',
         pathMatch: 'full',
+    },
+    {
+        path: 'report',
+        component: BusinessReportComponent
     },
     {
         path: 'transactions/new',

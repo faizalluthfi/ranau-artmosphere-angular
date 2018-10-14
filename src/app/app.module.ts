@@ -37,6 +37,7 @@ import localeId from '@angular/common/locales/id';
 import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.component';
 import { DailyUseFormComponent } from './daily-use-form/daily-use-form.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BusinessReportComponent } from './business-report/business-report.component';
 
 registerLocaleData(localeId, 'id');
 
@@ -65,7 +66,8 @@ registerLocaleData(localeId, 'id');
     PaddingPipe,
     TransactionNoteComponent,
     DailyUsesListComponent,
-    DailyUseFormComponent
+    DailyUseFormComponent,
+    BusinessReportComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="card">
+        <div class="header">
+          <div class="pull-right hidden-print">
+            <div class="btn-group">
+              <button class="btn btn-secondary" type="button" (click)="month = previousMonth; loadData()">{{previousMonth | date: 'MMMM yyyy'}}</button>
+              <button class="btn btn-secondary" type="button" (click)="month = nextMonth; loadData()">{{nextMonth | date: 'MMMM yyyy'}}</button>
+            </div>
+            &nbsp;
+            <button class="btn btn-primary" type="button" (click)="printToPdf()"><i class="ti-printer"></i></button>
+          </div>
+          <h4 class="title report-title">Percetakan Bulan {{month | date: 'MMMM yyyy'}}</h4>
+          <div class="clearfix"></div>
+        </div>
+        <div class="content">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th *ngFor="let category of categories">{{category.name}}</th>
+                  <th>Total</th>
+                  <th *ngFor="let material of materials">{{material.name}}</th>
+                  <th>Total</th>
+                  <th>Saldo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of data">
+                  <td>{{row.day_of_month}}</td>
+                  <td *ngFor="let category of categories" class="text-right">
+                    <ng-container *ngIf="row.transactionsData[category.id] > 0">
+                      {{row.transactionsData[category.id] | number}}
+                    </ng-container>
+                  </td>
+                  <td class="text-right">
+                    <ng-container *ngIf="row.transactionsTotal > 0">
+                      {{row.transactionsTotal | number}}
+                    </ng-container>
+                  </td>
+                  <td *ngFor="let material of materials" class="text-right">
+                    <ng-container *ngIf="row.expensesData[material.id] > 0">
+                      {{row.expensesData[material.id] | number}}
+                    </ng-container>
+                  </td>
+                  <td class="text-right">
+                    <ng-container *ngIf="row.expensesTotal > 0">
+                      {{row.expensesTotal | number}}
+                    </ng-container>
+                  </td>
+                  <td class="text-right">
+                    <ng-container *ngIf="row.transactionsTotal > 0 || row.expensesTotal > 0">
+                      {{row.balance | number}}
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
