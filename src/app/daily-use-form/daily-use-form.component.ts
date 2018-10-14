@@ -57,6 +57,7 @@ export class DailyUseFormComponent implements OnInit {
           }));
         });
         this.form.patchValue(this.dailyUse);
+        this.form.controls.created_at.setValue(moment().toDate());
         this.form.markAsPristine();
       })
     );
