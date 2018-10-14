@@ -34,6 +34,7 @@
     "moment": "2.22.2",
     "ngx-bootstrap": "^3.0.1",
     "rxjs": "6.3.3",
+    "xlsx": "^0.14.0",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
