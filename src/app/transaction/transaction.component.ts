@@ -96,6 +96,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       let item = new TransactionItem();
       item.service = service;
       this.transaction.items.push(item);
+      this.itemsServicesIds.push(service.id);
       this.items.push(this.formBuilder.group({
         service_id: [service.id, Validators.required],
         nominal: [service.price, Validators.required],
