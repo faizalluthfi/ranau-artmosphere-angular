@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
       </div>
       <div class="content">
-        <ng-container *ngIf="categories">
+        <ng-container *ngIf="categories; else loading">
           <div *ngIf="categories.length > 0; else noCategories" class="table-responsive">
             <table class="table table-bordered table-condensed table-striped">
               <tbody>
@@ -30,4 +30,7 @@
 </div>
 <ng-template #noCategories>
   <p>Data kategori kosong.</p>
+</ng-template>
+<ng-template #loading>
+  <p>Membaca data...</p>
 </ng-template>

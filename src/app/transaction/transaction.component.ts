@@ -27,6 +27,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
   categories: Category[];
   subscriptions: Subscription[] = [];
 
+  loading: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     private service: TransactionService,
@@ -46,6 +48,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.subscriptions.push(
       this.categoriesWithServicesService.categories.subscribe(categories => {
         if (categories.length > 0) this.category = categories[0];
@@ -53,6 +56,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       })
     );
     this.route.params.subscribe(params => {
+      this.loading = true;
       this.itemsServicesIds = [];
       while (this.items.length > 0) this.items.removeAt(0);
       this.form.reset();
@@ -70,9 +74,11 @@ export class TransactionComponent implements OnInit, OnDestroy {
           });
           this.form.patchValue(transaction);
           this.transaction = transaction;
+          this.loading = false;
         });
       } else {
         this.transaction = new Transaction();
+        this.loading = false;
       }
     });
     this.categoriesWithServicesService.loadCategories();

@@ -19,7 +19,7 @@
       </div>
       <div class="content">
       
-        <ng-container *ngIf="dailyUses">
+        <ng-container *ngIf="dailyUses; else loading">
           <div *ngIf="dailyUses.length > 0; else noTransactions" class="table-responsive">
             <table class="table table-bordered table-condensed table-striped">
               <tbody>
@@ -38,4 +38,7 @@
 </div>
 <ng-template #noTransactions>
   <p>Data pengeluaran harian {{month | date: 'MMMM yyyy'}} kosong.</p>
+</ng-template>
+<ng-template #loading>
+  <p>Membaca data...</p>
 </ng-template>
