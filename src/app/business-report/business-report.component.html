@@ -5,8 +5,8 @@
         <div class="header">
           <div class="pull-right hidden-print">
             <div class="btn-group">
-              <button class="btn btn-secondary" type="button" (click)="month = previousMonth; loadData()">{{previousMonth | date: 'MMMM yyyy'}}</button>
-              <button class="btn btn-secondary" type="button" (click)="month = nextMonth; loadData()">{{nextMonth | date: 'MMMM yyyy'}}</button>
+              <button class="btn btn-secondary" type="button" (click)="setMonth(previousMonth)">{{previousMonth | date: 'MMMM yyyy'}}</button>
+              <button class="btn btn-secondary" type="button" (click)="setMonth(nextMonth)">{{nextMonth | date: 'MMMM yyyy'}}</button>
             </div>
             &nbsp;
             <button class="btn btn-primary" type="button" (click)="export()"><i class="ti-download"></i></button>

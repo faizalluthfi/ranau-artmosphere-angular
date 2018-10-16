@@ -32,7 +32,9 @@ export class EditCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.servicesInputs.loading = true;
     this.route.params.subscribe(params => {
+      this.servicesInputs.loading = true;
       this.service.getCategory(params.id).then(category => {
         this.category_id = category.id;
         this.category = category;
@@ -50,6 +52,7 @@ export class EditCategoryComponent implements OnInit {
         this.form.patchValue(this.category);
         this.form.markAsPristine();
         this.servicesInputs.countServices();
+        this.servicesInputs.loading = false;
       });
     });
   }

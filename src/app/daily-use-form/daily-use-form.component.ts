@@ -25,6 +25,7 @@ export class DailyUseFormComponent implements OnInit {
   category: Category;
   // materials: Material[];
   subscriptions: Subscription[] = [];
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -66,6 +67,7 @@ export class DailyUseFormComponent implements OnInit {
     );
 
     this.route.params.subscribe(params => {
+      this.loading = true;
       while (this.materialsInputs.length > 0) this.materialsInputs.removeAt(0);
       this.form.reset();
 
@@ -84,10 +86,12 @@ export class DailyUseFormComponent implements OnInit {
           }
           this.dailyUse = dailyUse;
           this.form.markAsPristine();
+          this.loading = false;
         });
       } else {
         this.materialsService.getMaterials();
         this.dailyUse = new DailyUse();
+        this.loading = false;
       }
     });
   }
