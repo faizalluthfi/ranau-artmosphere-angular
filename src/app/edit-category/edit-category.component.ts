@@ -4,6 +4,7 @@ import { CategoryService } from '../services/category.service';
 import { CategoriesService } from '../services/categories.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Category } from '../classes/category';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -20,6 +21,7 @@ export class EditCategoryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private service: CategoryService,
     private categoriesService: CategoriesService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -53,13 +55,17 @@ export class EditCategoryComponent implements OnInit {
   }
 
   submit() {
-    this.service.updateCategory(this.category.id, this.form.value).tap(() => this.categoriesService.getCategories());
-    this.router.navigate(['..'], {relativeTo: this.route});
+    this.service.updateCategory(this.category.id, this.form.value).tap(() => {
+      this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
+      this.categoriesService.getCategories();
+      this.router.navigate(['..'], {relativeTo: this.route});
+    });
   }
 
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus kategori ini?')) {
       this.service.deleteCategory(this.category.id).tap(() => {
+        this.notificationService.setNotification('Kategori berhasil dihapus.', 'success');
         this.categoriesService.getCategories();
         this.router.navigate(['..'], {relativeTo: this.route});
       });

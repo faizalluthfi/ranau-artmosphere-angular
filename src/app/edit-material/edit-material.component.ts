@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MaterialService } from '../services/material.service';
 import { MaterialsService } from '../services/materials.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-edit-material',
@@ -18,6 +19,7 @@ export class EditMaterialComponent implements OnInit {
     formBuilder: FormBuilder,
     private service: MaterialService,
     private materialsService: MaterialsService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -37,13 +39,17 @@ export class EditMaterialComponent implements OnInit {
   }
 
   submit() {
-    this.service.updateMaterial(this.material.id, this.form.value).tap(() => this.materialsService.getMaterials());
+    this.service.updateMaterial(this.material.id, this.form.value).tap(() => {
+      this.notificationService.setNotification('Bahan berhasil disimpan.', 'success');
+      this.materialsService.getMaterials();
     this.router.navigate(['..'], {relativeTo: this.route});
+    });
   }
 
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus bahan ini?')) {
       this.service.deleteMaterial(this.material.id).tap(() => {
+        this.notificationService.setNotification('Bahan berhasil dihapus.', 'success');
         this.materialsService.getMaterials();
         this.router.navigate(['..'], {relativeTo: this.route});
       });

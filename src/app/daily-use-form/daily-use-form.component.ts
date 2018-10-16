@@ -11,6 +11,7 @@ import { MaterialsService } from '../services/materials.service';
 import { isNumber } from 'util';
 import * as moment from 'moment';
 import { DailyUsesService } from '../services/daily-uses.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-daily-use-form',
@@ -30,6 +31,7 @@ export class DailyUseFormComponent implements OnInit {
     private dailyUsesService: DailyUsesService,
     private service: DailyUseService,
     private materialsService: MaterialsService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone
@@ -110,6 +112,7 @@ export class DailyUseFormComponent implements OnInit {
       .tap(result => {
         this.service.getDailyUse(this.dailyUse.id || result.id).then(() => {
           this.zone.run(() => {
+            this.notificationService.setNotification('Pengeluaran harian berhasil disimpan.', 'success');
             this.dailyUsesService.getDailyUses();
             this.router.navigate(['..'], { relativeTo: this.route });
           });
