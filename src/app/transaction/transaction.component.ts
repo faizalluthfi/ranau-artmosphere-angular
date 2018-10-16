@@ -64,7 +64,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       if (params.id) {
         this.service.getTransaction(params.id).then(transaction => {
           transaction.items.forEach(item => {
-            this.itemsServicesIds.push(item.id);
+            this.itemsServicesIds.push(item.service_id);
             this.items.push(this.formBuilder.group({
               id: [item.id],
               service_id: [null, Validators.required],
