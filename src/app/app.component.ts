@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { IS_ELECTRON } from 'app/references/is-electron';
 import { Router } from '@angular/router';
 import { AppService } from './services/app.service';
+import { NotificationService } from './services/notification.service';
 
 declare var $:any;
 
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     private zone: NgZone,
     private router: Router,
-    private service: AppService
+    private service: AppService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -28,5 +30,13 @@ export class AppComponent implements OnInit {
         this.service.sendToIpc('init-printer', clientSettings.printer_path);
       }
     }
+    this.service.handleIpcEvents([
+      ['backup-succeed', () => {
+        this.notificationService.setNotification('Pencadangan data berhasil.', 'success');
+      }],
+      ['error', message => {
+        this.notificationService.setNotification(message, 'error');
+      }],
+    ]);
   }
 }

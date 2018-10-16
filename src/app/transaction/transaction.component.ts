@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { Service } from '../classes/service';
 import { TransactionItem } from '../classes/transaction-item';
 import { TransactionNoteComponent } from '../transaction-note/transaction-note.component';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-transaction',
@@ -30,6 +31,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private service: TransactionService,
     private categoriesWithServicesService: CategoriesWithServicesService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone
@@ -126,6 +128,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       .tap(result => {
         this.service.getTransaction(this.transaction.id || result.id).then(transaction => {
           this.zone.run(() => {
+            this.notificationService.setNotification('Transaksi berhasil disimpan.', 'success');
             if (!this.transaction.id || window.confirm('Cetak nota?')) {
               this.note.printNote(transaction);
             }
