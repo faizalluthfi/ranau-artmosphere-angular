@@ -10,10 +10,12 @@ export class ServicesInputsComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() id: number;
 
-  notDeletedAccount: number = 0;
+  notDeletedAccount: number = null;
   deletedCount: number = 0;
 
   services: FormArray;
+
+  loading: boolean = false;
 
   constructor(private formBuilder: FormBuilder) { }
 

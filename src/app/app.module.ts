@@ -40,6 +40,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BusinessReportComponent } from './business-report/business-report.component';
 import { BackupAndRestoreComponent } from './backup-and-restore/backup-and-restore.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { NotificationComponent } from './shared/notification/notification.component';
 
 registerLocaleData(localeId, 'id');
 
@@ -70,7 +71,8 @@ registerLocaleData(localeId, 'id');
     DailyUsesListComponent,
     DailyUseFormComponent,
     BusinessReportComponent,
-    BackupAndRestoreComponent
+    BackupAndRestoreComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

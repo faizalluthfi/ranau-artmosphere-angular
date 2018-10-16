@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../services/app.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-setting',
@@ -15,6 +16,7 @@ export class SettingComponent implements OnInit {
   constructor(
     formBuilder: FormBuilder,
     public globalService: AppService,
+    private notificationService: NotificationService,
     private router: Router
   ) {
     this.form = formBuilder.group({
@@ -34,6 +36,7 @@ export class SettingComponent implements OnInit {
     if (this.form.value.printer_path) {
       this.globalService.sendToIpc('init-printer', this.form.value.printer_path);
     }
+    this.notificationService.setNotification('Pengaturan berhasil disimpan.', 'success');
     this.router.navigate(['/']);
   }
 

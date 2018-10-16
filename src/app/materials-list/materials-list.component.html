@@ -13,7 +13,7 @@
       </div>
       <div class="content">
       
-        <ng-container *ngIf="materials">
+        <ng-container *ngIf="materials; else loading">
           <div *ngIf="materials.length > 0; else noMaterials" class="table-responsive">
             <table class="table table-bordered table-condensed table-striped">
               <tbody>
@@ -31,4 +31,7 @@
 </div>
 <ng-template #noMaterials>
   <p>Data bahan kosong.</p>
+</ng-template>
+<ng-template #loading>
+  <p>Membaca data...</p>
 </ng-template>

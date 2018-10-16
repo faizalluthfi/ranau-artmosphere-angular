@@ -24,7 +24,7 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   materials: Material[] = [];
   subscriptions: Subscription[];
-  data: any[] = [];
+  data: any[];
 
   columnDefs: any[];
   gridApi: any;
@@ -62,6 +62,12 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
       allColumnIds.push(column.colId);
     });
     columnApi.autoSizeColumns(allColumnIds);
+  }
+
+  setMonth(month: Moment) {
+    this.gridApi.showLoadingOverlay();
+    this.month = month;
+    this.loadData();
   }
 
   loadData() {
@@ -140,6 +146,7 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
               row.expensesTotal += value;
               row.balance -= value;
             });
+            this.gridApi.hideOverlay();
           });
       });
   }

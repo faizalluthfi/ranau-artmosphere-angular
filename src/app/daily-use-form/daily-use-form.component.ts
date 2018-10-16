@@ -11,6 +11,7 @@ import { MaterialsService } from '../services/materials.service';
 import { isNumber } from 'util';
 import * as moment from 'moment';
 import { DailyUsesService } from '../services/daily-uses.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-daily-use-form',
@@ -24,12 +25,14 @@ export class DailyUseFormComponent implements OnInit {
   category: Category;
   // materials: Material[];
   subscriptions: Subscription[] = [];
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private dailyUsesService: DailyUsesService,
     private service: DailyUseService,
     private materialsService: MaterialsService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone
@@ -64,6 +67,7 @@ export class DailyUseFormComponent implements OnInit {
     );
 
     this.route.params.subscribe(params => {
+      this.loading = true;
       while (this.materialsInputs.length > 0) this.materialsInputs.removeAt(0);
       this.form.reset();
 
@@ -82,10 +86,12 @@ export class DailyUseFormComponent implements OnInit {
           }
           this.dailyUse = dailyUse;
           this.form.markAsPristine();
+          this.loading = false;
         });
       } else {
         this.materialsService.getMaterials();
         this.dailyUse = new DailyUse();
+        this.loading = false;
       }
     });
   }
@@ -110,6 +116,7 @@ export class DailyUseFormComponent implements OnInit {
       .tap(result => {
         this.service.getDailyUse(this.dailyUse.id || result.id).then(() => {
           this.zone.run(() => {
+            this.notificationService.setNotification('Pengeluaran harian berhasil disimpan.', 'success');
             this.dailyUsesService.getDailyUses();
             this.router.navigate(['..'], { relativeTo: this.route });
           });

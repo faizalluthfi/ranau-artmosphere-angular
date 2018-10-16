@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MaterialService } from '../services/material.service';
 import { MaterialsService } from '../services/materials.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-new-material',
@@ -16,6 +17,7 @@ export class NewMaterialComponent implements OnInit {
     formBuilder: FormBuilder,
     private service: MaterialService,
     private materialsService: MaterialsService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -29,6 +31,7 @@ export class NewMaterialComponent implements OnInit {
 
   submit() {
     this.service.createMaterial(this.form.value).tap(() => {
+      this.notificationService.setNotification('Bahan berhasil disimpan.', 'success');
       this.materialsService.getMaterials();
       this.router.navigate(['..'], {relativeTo: this.route});
     });

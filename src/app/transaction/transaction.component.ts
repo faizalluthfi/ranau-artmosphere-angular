@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { Service } from '../classes/service';
 import { TransactionItem } from '../classes/transaction-item';
 import { TransactionNoteComponent } from '../transaction-note/transaction-note.component';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-transaction',
@@ -26,10 +27,13 @@ export class TransactionComponent implements OnInit, OnDestroy {
   categories: Category[];
   subscriptions: Subscription[] = [];
 
+  loading: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     private service: TransactionService,
     private categoriesWithServicesService: CategoriesWithServicesService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone
@@ -44,6 +48,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.subscriptions.push(
       this.categoriesWithServicesService.categories.subscribe(categories => {
         if (categories.length > 0) this.category = categories[0];
@@ -51,6 +56,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       })
     );
     this.route.params.subscribe(params => {
+      this.loading = true;
       this.itemsServicesIds = [];
       while (this.items.length > 0) this.items.removeAt(0);
       this.form.reset();
@@ -68,9 +74,11 @@ export class TransactionComponent implements OnInit, OnDestroy {
           });
           this.form.patchValue(transaction);
           this.transaction = transaction;
+          this.loading = false;
         });
       } else {
         this.transaction = new Transaction();
+        this.loading = false;
       }
     });
     this.categoriesWithServicesService.loadCategories();
@@ -126,6 +134,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       .tap(result => {
         this.service.getTransaction(this.transaction.id || result.id).then(transaction => {
           this.zone.run(() => {
+            this.notificationService.setNotification('Transaksi berhasil disimpan.', 'success');
             if (!this.transaction.id || window.confirm('Cetak nota?')) {
               this.note.printNote(transaction);
             }
