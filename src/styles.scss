@@ -15,6 +15,10 @@ tr[routerLinkActive]:hover td {
     text-align: left;
 }
 
+.form-list {
+  overflow: auto;
+}
+
 @media print {
   .sidebar,
   app-pagination {

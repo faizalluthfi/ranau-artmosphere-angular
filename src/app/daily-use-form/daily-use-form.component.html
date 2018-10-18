@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" appFormAutoHeight>
   <div class="header">
     <div class="pull-right"><a [routerLink]="['..']"><i class="ti-close"></i></a></div>
     <h4 class="title">Pengeluaran Harian</h4>
@@ -8,7 +8,7 @@
     <p *ngIf="loading; else loaded">Membaca data...</p>
     <ng-template #loaded>
       <form [formGroup]="form" class="form-horizontal" (ngSubmit)="submit()">
-        <div class="row">
+        <div class="row form-header">
           <label for="daily-use-created-at" class="control-label col-md-3 col-xs-6 text-left">Tanggal</label>
           <div class="col-xs-6 form-group">
             <input type="text"
@@ -20,7 +20,7 @@
           </div>
         </div>
         
-        <div class="table-responsive" formArrayName="materials">
+        <div class="table-responsive form-list" formArrayName="materials">
           <table class="table table-bordered table-striped table-condensed">
             <tbody>
               <tr *ngFor="let material of materialsInputs.controls; let i = index" [formGroupName]="i">
@@ -40,7 +40,7 @@
         </div>
       
       
-        <div class="row">
+        <div class="row form-footer">
           <div class="col-xs-12 text-right">
             <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
               <i class="ti-check"></i>

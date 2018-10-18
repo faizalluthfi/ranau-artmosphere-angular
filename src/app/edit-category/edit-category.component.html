@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" appFormAutoHeight>
   <div class="header">
     <div class="pull-right">
       <a [routerLink]="['..']"><i class="ti-close"></i></a>
@@ -8,13 +8,13 @@
   </div>
   <div class="content">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-group">
+      <div class="form-group form-header">
         <input type="text" class="form-control border-input" formControlName="name">
       </div>
-      <div class="form-group">
+      <div class="form-group form-list">
         <app-services-inputs [form]="form" [id]="category_id" #servicesInputs></app-services-inputs>
       </div>
-      <div class="row">
+      <div class="row form-footer">
         <div class="col-xs-6">
           <button class="btn btn-danger" type="button" (click)="delete()">
             <i class="ti-trash"></i>
