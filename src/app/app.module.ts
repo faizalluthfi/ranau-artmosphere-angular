@@ -43,6 +43,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { NotificationComponent } from './shared/notification/notification.component';
 import { ListAutoHeightDirective } from './directives/list-auto-height.directive';
 import { FormAutoHeightDirective } from './directives/form-auto-height.directive';
+import { TransactionFormAutoHeightDirective } from './directives/transaction-form-auto-height.directive';
 
 registerLocaleData(localeId, 'id');
 
@@ -76,7 +77,8 @@ registerLocaleData(localeId, 'id');
     BackupAndRestoreComponent,
     NotificationComponent,
     ListAutoHeightDirective,
-    FormAutoHeightDirective
+    FormAutoHeightDirective,
+    TransactionFormAutoHeightDirective
   ],
   imports: [
     BrowserModule,
