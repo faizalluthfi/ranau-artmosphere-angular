@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="card">
-        <div class="header">
+        <div class="header" id="card-header">
           <div class="pull-right hidden-print">
             <div class="btn-group">
               <button class="btn btn-secondary" type="button" (click)="setMonth(previousMonth)">{{previousMonth | date: 'MMMM yyyy'}}</button>
@@ -15,17 +15,19 @@
           <p class="category hidden-print">{{month | date: 'MMMM yyyy'}}</p>
           <div class="clearfix"></div>
         </div>
-        <div class="content">
-          <ag-grid-angular
-            #grid
-            style="height: 500px;" 
-            class="ag-theme-fresh"
-            [rowData]="data" 
-            [columnDefs]="columnDefs"
-            [enableColResize]="true"
-            (modelUpdated)="gridModelUpdated($event)"
-            [suppressColumnVirtualisation]="true">
-          </ag-grid-angular>
+        <div class="content" id="card-content">
+          <div appListAutoHeight>
+            <ag-grid-angular
+              #grid
+              style="height: 100%;" 
+              class="ag-theme-fresh"
+              [rowData]="data" 
+              [columnDefs]="columnDefs"
+              [enableColResize]="true"
+              (modelUpdated)="gridModelUpdated($event)"
+              [suppressColumnVirtualisation]="true">
+            </ag-grid-angular>
+          </div>
           <div class="table-responsive hidden">
             <table class="table table-bordered table-striped table-condensed" #table>
               <thead>

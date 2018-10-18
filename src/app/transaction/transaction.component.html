@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <div class="card">
+      <div class="card" appTransactionFormAutoHeight>
         <div class="header">
           <h4 class="title">Transaksi</h4>
         </div>
@@ -11,12 +11,12 @@
             <form [formGroup]="form" (ngSubmit)="submit()">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <div class="form-group form-header">
                     <select class="form-control border-input" [(ngModel)]="category" [ngModelOptions]="{standalone: true}">
                       <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
                     </select>
                   </div>
-                  <div class="table-responsive" *ngIf="category">
+                  <div class="table-responsive form-list" *ngIf="category">
                     <table class="table table-striped table-condensed table-bordered">
                       <tbody>
                         <ng-container *ngFor="let service of category.services">
@@ -35,7 +35,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="table-responsive" formArrayName="items">
+                  <div class="table-responsive form-items" formArrayName="items">
                     <table class="table table-bordered table-striped table-condensed">
                       <tbody>
                         <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i" [class.danger]="item.value.deleted">
@@ -64,7 +64,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row form-footer">
                 <div class="col-xs-12 text-right">
                   <button class="btn btn-primary" type="submit">
                     <i class="ti-check"></i>

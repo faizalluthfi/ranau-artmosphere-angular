@@ -41,6 +41,9 @@ import { BusinessReportComponent } from './business-report/business-report.compo
 import { BackupAndRestoreComponent } from './backup-and-restore/backup-and-restore.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { NotificationComponent } from './shared/notification/notification.component';
+import { ListAutoHeightDirective } from './directives/list-auto-height.directive';
+import { FormAutoHeightDirective } from './directives/form-auto-height.directive';
+import { TransactionFormAutoHeightDirective } from './directives/transaction-form-auto-height.directive';
 
 registerLocaleData(localeId, 'id');
 
@@ -72,7 +75,10 @@ registerLocaleData(localeId, 'id');
     DailyUseFormComponent,
     BusinessReportComponent,
     BackupAndRestoreComponent,
-    NotificationComponent
+    NotificationComponent,
+    ListAutoHeightDirective,
+    FormAutoHeightDirective,
+    TransactionFormAutoHeightDirective
   ],
   imports: [
     BrowserModule,
