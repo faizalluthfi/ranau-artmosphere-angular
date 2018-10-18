@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-{{route.children.length > 0 ? 6 : 12}}">
     <div class="card">
-      <div class="header">
+      <div class="header" id="card-header">
         <div class="pull-right">
           <a class="btn btn-primary" [routerLink]="['new']">
             <i class="ti-plus"></i>
@@ -11,10 +11,10 @@
         <h4 class="title">Bahan</h4>
         <div class="clearfix"></div>
       </div>
-      <div class="content">
+      <div class="content" id="card-content">
       
         <ng-container *ngIf="materials; else loading">
-          <div *ngIf="materials.length > 0; else noMaterials" class="table-responsive">
+          <div *ngIf="materials.length > 0; else noMaterials" class="table-responsive" appListAutoHeight>
             <table class="table table-bordered table-condensed table-striped">
               <tbody>
                 <tr *ngFor="let material of materials" [routerLink]="[material.id]" routerLinkActive="info">
