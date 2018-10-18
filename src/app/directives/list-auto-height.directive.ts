@@ -21,13 +21,10 @@ export class ListAutoHeightDirective implements AfterViewChecked {
 
     const cardContent = document.getElementById('card-content');
     let cardContentStyles = window.getComputedStyle(cardContent);
-    
-    let filter = document.getElementById('filter');
 
     let decreasedHeight = navbar.offsetHeight +
       parseInt(content.paddingTop) + parseInt(content.paddingBottom) +
       cardHeader.offsetHeight +
-      (filter ? filter.offsetHeight : 0) +
       (cardContent ? ( parseInt(cardContentStyles.paddingTop) + parseInt(cardContentStyles.paddingBottom) ) : 0);
     this.renderer.setStyle(this.el.nativeElement, 'height', `${ Math.max(window.innerHeight - decreasedHeight, 400) }px`);
   }
