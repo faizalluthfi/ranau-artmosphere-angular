@@ -10,7 +10,7 @@
           <ng-template #loaded>
             <form [formGroup]="form" (ngSubmit)="submit()">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group form-header">
                     <select class="form-control border-input" [(ngModel)]="category" [ngModelOptions]="{standalone: true}">
                       <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
@@ -21,7 +21,7 @@
                       <tbody>
                         <ng-container *ngFor="let service of category.services">
                           <tr *ngIf="!service.deleted" [class.clickable]="!itemsServicesIds.includes(service.id)" [class.success]="itemsServicesIds.includes(service.id)"
-                            (click)="addItem(service)">
+                            (click)="addItem(service); calculateTotal()">
                             <td>
                               <div class="pull-right">{{service.price | number}}</div>
                               {{service.name}}
@@ -34,29 +34,74 @@
                     </table>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="table-responsive form-items" formArrayName="items">
+                <div class="col-md-8">
+                  <div class="table-responsive form-items">
                     <table class="table table-bordered table-striped table-condensed">
-                      <tbody>
+                      <thead>
+                        <tr>
+                          <th>Layanan</th>
+                          <th width="150">Harga</th>
+                          <th width="150">Banyak</th>
+                          <th width="150">Jumlah</th>
+                          <th width="50"></th>
+                        </tr>
+                      </thead>
+                      <tbody formArrayName="items">
                         <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i" [class.danger]="item.value.deleted">
                           <td>
                             {{transaction.items[i].service.name}}
                           </td>
                           <td>
-                            <input type="text" class="form-control input-sm border-input text-right" formControlName="nominal" [attr.disabled]="item.value.deleted">
+                            <input type="text" class="form-control input-sm border-input text-right" formControlName="nominal" [attr.disabled]="item.value.deleted" (input)="calculateTotal()">
                           </td>
+                          <td>
+                            <input type="text" class="form-control input-sm border-input text-right" formControlName="amount" [attr.disabled]="item.value.deleted" (input)="calculateTotal()">
+                          </td>
+                          <td class="text-right">{{jumlah(item) | number}}</td>
                           <td width="50" class="text-right">
-                            <button class="btn btn-secondary btn-sm" *ngIf="item.value.deleted" type="button" (click)="item.controls.deleted.setValue(null)">
+                            <button class="btn btn-secondary btn-sm" *ngIf="item.value.deleted" type="button" (click)="item.controls.deleted.setValue(null); calculateTotal()">
                               <i class="ti-back-right"></i>
                             </button>
-                            <button class="btn btn-danger btn-sm" *ngIf="!item.value.deleted" type="button" (click)="removeItem(i)">
+                            <button class="btn btn-danger btn-sm" *ngIf="!item.value.deleted" type="button" (click)="removeItem(i); calculateTotal()">
                               <i class="ti-close"></i>
                             </button>
                           </td>
                         </tr>
+                      </tbody>
+                      <tbody>
+                        <tr *ngIf="items.controls.length == 0">
+                          <td colspan="5">
+                            <p>Item transaksi masih kosong. Pilih dulu layanan di sebelah kiri.</p>
+                          </td>
+                        </tr>
                         <tr>
-                          <td>Total</td>
+                          <td colspan="3">Total</td>
                           <td class="text-right">{{total | number}}</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">Diskon</td>
+                          <td>
+                            <input type="text" class="form-control input-sm border-input text-right" formControlName="discount" (input)="calculateTotal()">
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">Grand Total</td>
+                          <td class="text-right">{{grandTotal | number}}</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">Nominal Uang</td>
+                          <td>
+                            <input type="text" class="form-control input-sm border-input text-right" formControlName="money_nominal" (input)="calculateTotal()">
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr *ngIf="moneyChange != 0">
+                          <td colspan="3" *ngIf="moneyChange > 0">Kembalian</td>
+                          <td colspan="3" *ngIf="moneyChange < 0">Kurang</td>
+                          <td class="text-right" [class.text-danger]="moneyChange < 0">{{moneyChange | number}}</td>
                           <td></td>
                         </tr>
                       </tbody>
@@ -66,7 +111,7 @@
               </div>
               <div class="row form-footer">
                 <div class="col-xs-12 text-right">
-                  <button class="btn btn-primary" type="submit">
+                  <button class="btn btn-primary" type="submit" [disabled]="moneyChange < 0">
                     <i class="ti-check"></i>
                     Simpan
                   </button>

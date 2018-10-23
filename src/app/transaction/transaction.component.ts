@@ -26,6 +26,9 @@ export class TransactionComponent implements OnInit, OnDestroy {
   category: Category;
   categories: Category[];
   subscriptions: Subscription[] = [];
+  total: number = 0;
+  grandTotal: number = 0;
+  moneyChange: number = 0;
 
   loading: boolean;
 
@@ -42,6 +45,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
     
     this.form = formBuilder.group({
       total: [null],
+      discount: [null],
+      money_nominal: [null, Validators.required],
       items: formBuilder.array([])
     });
     this.items = <FormArray>this.form.controls.items;
@@ -69,15 +74,18 @@ export class TransactionComponent implements OnInit, OnDestroy {
               id: [item.id],
               service_id: [null, Validators.required],
               nominal: [null, Validators.compose([Validators.required, Validators.min(1)])],
+              amount: [1, Validators.compose([Validators.required, Validators.min(1)])],
               deleted: [item.deleted]
             }));
           });
           this.form.patchValue(transaction);
           this.transaction = transaction;
+          this.calculateTotal();
           this.loading = false;
         });
       } else {
         this.transaction = new Transaction();
+        this.calculateTotal();
         this.loading = false;
       }
     });
@@ -88,14 +96,18 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  get total(): number {
+  calculateTotal() {
     let value: number = 0;
     this.items.controls.forEach(item => {
       if (!item.value.deleted) {
-        value += parseInt(item.value.nominal) || 0;
+        value += (parseInt(item.value.nominal) || 0) * (parseInt(item.value.amount) || 0);
       }
     });
     this.form.controls.total.setValue(value);
+    this.grandTotal = value - (parseInt(this.form.value.discount) || 0);
+
+    this.moneyChange = (parseInt(this.form.value.money_nominal) || 0) - this.grandTotal;
+
     return value;
   }
 
@@ -107,7 +119,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
       this.itemsServicesIds.push(service.id);
       this.items.push(this.formBuilder.group({
         service_id: [service.id, Validators.required],
-        nominal: [service.price, Validators.required],
+        nominal: [service.price, Validators.compose([Validators.required, Validators.min(1)])],
+        amount: [1, Validators.compose([Validators.required, Validators.min(1)])],
         deleted: [null]
       }));
     }
@@ -142,6 +155,10 @@ export class TransactionComponent implements OnInit, OnDestroy {
           });
         });
       });
+  }
+
+  jumlah(item: FormGroup): number {
+    return (parseInt(item.value.nominal) || 0) * (parseInt(item.value.amount) || 0);
   }
 
 }

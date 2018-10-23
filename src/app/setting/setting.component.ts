@@ -22,7 +22,8 @@ export class SettingComponent implements OnInit {
     this.form = formBuilder.group({
       printer_top_blank_lines: [null],
       printer_path: [null],
-      printer_cpl: [null]
+      printer_cpl: [null],
+      printer_bottom_blank_lines: [null]
     });
   }
 
