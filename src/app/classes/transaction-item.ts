@@ -9,6 +9,7 @@ export class TransactionItem {
     transaction: Transaction;
     service: Service;
     nominal: number;
+    amount: number;
 
     deleted: boolean;
   
