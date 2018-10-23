@@ -82,6 +82,9 @@ export class TransactionNoteComponent implements OnInit {
     str.push('');
     str.push(this.paddingPipe.transform('Terima Kasih', {width: width, align: 3}));
 
+    let bottomBlankLines = parseInt(setting.printer_bottom_blank_lines);
+    if (bottomBlankLines && bottomBlankLines > 0) str.push("\n".repeat(bottomBlankLines));
+
     this.appService.sendToIpc('print-note', str.join("\n"));
   }
 
