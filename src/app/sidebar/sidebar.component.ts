@@ -33,5 +33,8 @@ export class SidebarComponent implements OnInit {
         }
         return true;
     }
+    get version(): string {
+        return window['packageJson'].version;
+    }
 
 }
