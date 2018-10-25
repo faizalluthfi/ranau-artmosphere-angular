@@ -44,6 +44,8 @@ import { NotificationComponent } from './shared/notification/notification.compon
 import { ListAutoHeightDirective } from './directives/list-auto-height.directive';
 import { FormAutoHeightDirective } from './directives/form-auto-height.directive';
 import { TransactionFormAutoHeightDirective } from './directives/transaction-form-auto-height.directive';
+import { ReportCategoriesComponent } from './report-categories/report-categories.component';
+import { ReportCategoryFormComponent } from './report-category-form/report-category-form.component';
 
 registerLocaleData(localeId, 'id');
 
@@ -78,7 +80,9 @@ registerLocaleData(localeId, 'id');
     NotificationComponent,
     ListAutoHeightDirective,
     FormAutoHeightDirective,
-    TransactionFormAutoHeightDirective
+    TransactionFormAutoHeightDirective,
+    ReportCategoriesComponent,
+    ReportCategoryFormComponent
   ],
   imports: [
     BrowserModule,
