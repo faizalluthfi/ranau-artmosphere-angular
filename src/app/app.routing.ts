@@ -22,6 +22,8 @@ import { DailyUsesListComponent } from './daily-uses-list/daily-uses-list.compon
 import { DailyUseFormComponent } from './daily-use-form/daily-use-form.component';
 import { BusinessReportComponent } from './business-report/business-report.component';
 import { BackupAndRestoreComponent } from './backup-and-restore/backup-and-restore.component';
+import { ReportCategoriesComponent } from './report-categories/report-categories.component';
+import { ReportCategoryFormComponent } from './report-category-form/report-category-form.component';
 
 export const AppRoutes: Routes = [
     {
@@ -88,6 +90,20 @@ export const AppRoutes: Routes = [
             {
                 path: ':id',
                 component: EditMaterialComponent
+            }
+        ]
+    },
+    {
+        path: 'report-categories',
+        component: ReportCategoriesComponent,
+        children: [
+            {
+                path: 'new',
+                component: ReportCategoryFormComponent
+            },
+            {
+                path: ':id',
+                component: ReportCategoryFormComponent
             }
         ]
     },
