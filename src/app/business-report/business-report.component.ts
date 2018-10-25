@@ -1,29 +1,26 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { BusinessReportService } from '../services/business-report.service';
-import { AppService } from '../services/app.service';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { CategoriesService } from '../services/categories.service';
-import { Category } from 'app/classes/category';
-import { Subscription } from 'rxjs';
 import { MaterialsService } from '../services/materials.service';
 import { Material } from '../classes/material';
 import * as XLSX from 'xlsx';
 import { DecimalPipe } from '@angular/common';
+import { ReportCategory } from '../classes/report-category';
+import { ReportCategoriesService } from '../services/report-categories.service';
 
 @Component({
   selector: 'app-business-report',
   templateUrl: './business-report.component.html',
   styleUrls: ['./business-report.component.scss']
 })
-export class BusinessReportComponent implements OnInit, OnDestroy {
+export class BusinessReportComponent implements OnInit {
   @ViewChild('grid', { read: ElementRef }) grid: ElementRef;
   @ViewChild('table', {read: ElementRef}) table: ElementRef;
 
   month: Moment;
-  categories: Category[] = [];
+  reportCategories: ReportCategory[] = [];
   materials: Material[] = [];
-  subscriptions: Subscription[];
   data: any[];
 
   columnDefs: any[];
@@ -31,7 +28,7 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: BusinessReportService,
-    private categoriesService: CategoriesService,
+    private reportCategoriesService: ReportCategoriesService,
     private materialsService: MaterialsService,
     private decimalPipe: DecimalPipe
   ) { }
@@ -39,18 +36,13 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.month = moment().startOf('month');
 
-    this.subscriptions = [
-      this.categoriesService.result.subscribe(result => {
-        this.categories = result.models.map(model => model.attributes);
-        this.materialsService.getMaterials();
-      }),
-      this.materialsService.materials.subscribe(materials => {
+    this.reportCategoriesService.getReportCategories().then(reportCategories => {
+      this.reportCategories = reportCategories;
+      this.materialsService.getMaterials().then(materials => {
         this.materials = materials;
         this.loadData();
-      })
-    ];
-
-    this.categoriesService.getCategories();
+      });
+    });
   }
 
   gridModelUpdated(params) {
@@ -80,7 +72,7 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
               headerName: 'Tanggal',
               field: 'day_of_month'
             });
-            this.categories.forEach(category => {
+            this.reportCategories.forEach(category => {
               this.columnDefs.push({
                 headerName: category.name,
                 field: `transactionsData`,
@@ -124,7 +116,7 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
                 transactionsData: {},
                 expensesData: {}
               };
-              this.categories.forEach(category => {
+              this.reportCategories.forEach(category => {
                 item.transactionsData[category.id] = 0;
               });
               this.materials.forEach(material => {
@@ -135,7 +127,7 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
             transactionsData.forEach(data => {
               const row = this.data[data.day_of_month - 1];
               const value = parseInt(data.nominal);
-              row.transactionsData[data.category_id] = value;
+              row.transactionsData[data.report_category_id] = value;
               row.transactionsTotal += value;
               row.balance += value;
             });
@@ -146,13 +138,9 @@ export class BusinessReportComponent implements OnInit, OnDestroy {
               row.expensesTotal += value;
               row.balance -= value;
             });
-            this.gridApi.hideOverlay();
+            if(this.gridApi) this.gridApi.hideOverlay();
           });
       });
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   get previousMonth(): Moment {

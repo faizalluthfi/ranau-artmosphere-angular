@@ -16,7 +16,9 @@ export class MaterialsService {
       .orderBy('name')
       .fetchAll()
       .then(result => {
-        this.materials.next(result.toJSON());
+        const materials = result.toJSON();
+        this.materials.next(materials);
+        return materials;
       });
   }
 }

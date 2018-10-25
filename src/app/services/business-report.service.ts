@@ -10,13 +10,14 @@ export class BusinessReportService {
     return knex('transaction_items')
       .select([
         knex.raw("strftime('%d', datetime(transactions.created_at/1000, 'unixepoch', 'localtime')) as day_of_month"),
-        knex.raw("services.category_id"),
+        knex.raw("categories.report_category_id"),
         knex.raw("SUM(transaction_items.nominal) as nominal")
       ])
       .leftJoin('services', 'transaction_items.service_id', 'services.id')
+      .leftJoin('categories', 'services.category_id', 'categories.id')
       .leftJoin('transactions', 'transaction_items.transaction_id', 'transactions.id')
       .whereBetween('transactions.created_at', [month.valueOf(), moment(month).endOf('month').valueOf()])
-      .groupByRaw("strftime('%d', datetime(transactions.created_at/1000, 'unixepoch', 'localtime')), services.category_id")
+      .groupByRaw("strftime('%d', datetime(transactions.created_at/1000, 'unixepoch', 'localtime')), categories.report_category_id")
       .then(result => {return result});
   }
 
