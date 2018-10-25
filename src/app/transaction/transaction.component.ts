@@ -108,7 +108,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
 
     this.moneyChange = (parseInt(this.form.value.money_nominal) || 0) - this.grandTotal;
 
-    return value;
+    return this.total = value;
   }
 
   addItem(service: Service) {
