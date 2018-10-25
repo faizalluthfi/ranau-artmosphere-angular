@@ -108,11 +108,20 @@ export class TransactionComponent implements OnInit, OnDestroy {
 
     this.moneyChange = (parseInt(this.form.value.money_nominal) || 0) - this.grandTotal;
 
-    return value;
+    return this.total = value;
   }
 
   addItem(service: Service) {
-    if (!this.itemsServicesIds.includes(service.id)) {
+    if (this.itemsServicesIds.includes(service.id)) {
+      for (let i = 0; i < this.items.controls.length; i++) {
+        let item = this.items.controls[i];
+        if (item.value.service_id == service.id) {
+          let amount = parseInt(item.value.amount) || 0;
+          item['controls'].amount.setValue(++amount);
+          break;
+        }
+      }
+    } else {
       let item = new TransactionItem();
       item.service = service;
       this.transaction.items.push(item);
@@ -138,7 +147,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
     }
   }
 
-  submit() {
+  submit(print: boolean = false) {
     (
       this.transaction.id ?
       this.service.updateTransaction(this.transaction.id, this.form.value) :
@@ -148,7 +157,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
         this.service.getTransaction(this.transaction.id || result.id).then(transaction => {
           this.zone.run(() => {
             this.notificationService.setNotification('Transaksi berhasil disimpan.', 'success');
-            if (!this.transaction.id || window.confirm('Cetak nota?')) {
+            if (print) {
               this.note.printNote(transaction);
             }
             this.router.navigate(['..'], {relativeTo: this.route});

@@ -8,7 +8,7 @@
         <div class="content">
           <p *ngIf="loading; else loaded">Membaca data...</p>
           <ng-template #loaded>
-            <form [formGroup]="form" (ngSubmit)="submit()">
+            <form [formGroup]="form">
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group form-header">
@@ -20,7 +20,7 @@
                     <table class="table table-striped table-condensed table-bordered">
                       <tbody>
                         <ng-container *ngFor="let service of category.services">
-                          <tr *ngIf="!service.deleted" [class.clickable]="!itemsServicesIds.includes(service.id)" [class.success]="itemsServicesIds.includes(service.id)"
+                          <tr *ngIf="!service.deleted" class="clickable" [class.success]="itemsServicesIds.includes(service.id)"
                             (click)="addItem(service); calculateTotal()">
                             <td>
                               <div class="pull-right">{{service.price | number}}</div>
@@ -111,10 +111,16 @@
               </div>
               <div class="row form-footer">
                 <div class="col-xs-12 text-right">
-                  <button class="btn btn-primary" type="submit" [disabled]="moneyChange < 0">
-                    <i class="ti-check"></i>
-                    Simpan
-                  </button>
+                  <div class="btn-group">
+                    <button class="btn btn-primary" type="button" (click)="submit()" [disabled]="moneyChange < 0">
+                      <i class="ti-check"></i>
+                      Simpan
+                    </button>
+                    <button class="btn btn-primary" type="button" (click)="submit(true)" [disabled]="moneyChange < 0">
+                      <i class="ti-printer"></i>
+                      Simpan dan Cetak
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>

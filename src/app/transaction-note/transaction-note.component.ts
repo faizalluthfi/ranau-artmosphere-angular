@@ -69,11 +69,18 @@ export class TransactionNoteComponent implements OnInit {
 
     let label = 'Total';
     str.push(label + this.paddingPipe.transform(this.decimalPipe.transform(total)    , {width: width - label.length}));
-    label = 'Diskon';
-    str.push(label + this.paddingPipe.transform(this.decimalPipe.transform(transaction.discount)    , {width: width - label.length}));
-    label = 'Grand Total';
+    
     const grandTotal = total - (transaction.discount || 0);
-    str.push(label + this.paddingPipe.transform(this.decimalPipe.transform(grandTotal)    , {width: width - label.length}));
+    if (transaction.discount) {
+      label = 'Diskon';
+      str.push(label + this.paddingPipe.transform(this.decimalPipe.transform(transaction.discount)    , {width: width - label.length}));
+      label = 'Grand Total';
+      str.push(label + this.paddingPipe.transform(this.decimalPipe.transform(grandTotal)    , {width: width - label.length}));
+    }
+    
+    label = 'Nominal Uang';
+    str.push(label + this.paddingPipe.transform(this.decimalPipe.transform(transaction.money_nominal)    , {width: width - label.length}));
+
     const moneyChange = (transaction.money_nominal || 0) - grandTotal;
     if (moneyChange > 0) {
       label = 'Kembalian';
