@@ -20,7 +20,7 @@
                     <table class="table table-striped table-condensed table-bordered">
                       <tbody>
                         <ng-container *ngFor="let service of category.services">
-                          <tr *ngIf="!service.deleted" [class.clickable]="!itemsServicesIds.includes(service.id)" [class.success]="itemsServicesIds.includes(service.id)"
+                          <tr *ngIf="!service.deleted" class="clickable" [class.success]="itemsServicesIds.includes(service.id)"
                             (click)="addItem(service); calculateTotal()">
                             <td>
                               <div class="pull-right">{{service.price | number}}</div>

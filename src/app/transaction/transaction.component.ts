@@ -112,7 +112,16 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
 
   addItem(service: Service) {
-    if (!this.itemsServicesIds.includes(service.id)) {
+    if (this.itemsServicesIds.includes(service.id)) {
+      for (let i = 0; i < this.items.controls.length; i++) {
+        let item = this.items.controls[i];
+        if (item.value.service_id == service.id) {
+          let amount = parseInt(item.value.amount) || 0;
+          item['controls'].amount.setValue(++amount);
+          break;
+        }
+      }
+    } else {
       let item = new TransactionItem();
       item.service = service;
       this.transaction.items.push(item);
