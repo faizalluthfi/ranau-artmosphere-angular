@@ -147,7 +147,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
     }
   }
 
-  submit() {
+  submit(print: boolean = false) {
     (
       this.transaction.id ?
       this.service.updateTransaction(this.transaction.id, this.form.value) :
@@ -157,7 +157,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
         this.service.getTransaction(this.transaction.id || result.id).then(transaction => {
           this.zone.run(() => {
             this.notificationService.setNotification('Transaksi berhasil disimpan.', 'success');
-            if (!this.transaction.id || window.confirm('Cetak nota?')) {
+            if (print) {
               this.note.printNote(transaction);
             }
             this.router.navigate(['..'], {relativeTo: this.route});
