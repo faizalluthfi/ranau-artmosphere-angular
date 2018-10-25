@@ -8,8 +8,23 @@
   </div>
   <div class="content">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-group form-header">
-        <input type="text" class="form-control border-input" formControlName="name">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group form-header">
+              <label for="category-name" class="control-label">Nama</label>
+              <input id="category-name" type="text" class="form-control border-input" formControlName="name">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group form-header">
+              <label for="category-report-category-id" class="control-label">Kategori Laporan</label>
+              <select id="category-report-category-id" class="form-control border-input" formControlName="report_category_id">
+                <option *ngFor="let reportCategory of reportCategories" [ngValue]="reportCategory.id">{{reportCategory.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="form-group form-list">
         <app-services-inputs [form]="form" [id]="category_id" #servicesInputs></app-services-inputs>

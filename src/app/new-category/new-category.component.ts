@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriesListComponent } from '../categories-list/categories-list.component';
 import { CategoriesService } from '../services/categories.service';
 import { NotificationService } from '../services/notification.service';
+import { ReportCategoriesService } from '../services/report-categories.service';
+import { ReportCategory } from '../classes/report-category';
 
 @Component({
   selector: 'app-new-category',
@@ -13,22 +15,31 @@ import { NotificationService } from '../services/notification.service';
 })
 export class NewCategoryComponent implements OnInit {
   form: FormGroup;
+  reportCategories: ReportCategory[];
 
   constructor(
     formBuilder: FormBuilder,
     private service: CategoryService,
     private categoriesService: CategoriesService,
+    private reportCategoriesService: ReportCategoriesService,
     private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute
   ) {
     this.form = formBuilder.group({
       name: [null, Validators.required],
+      report_category_id: [null, Validators.required],
       services: formBuilder.array([])
     });
   }
 
   ngOnInit() {
+    this.reportCategoriesService.getReportCategories().then(reportCategories => {
+      this.reportCategories = reportCategories;
+      if (reportCategories.length > 0) {
+        this.form.controls.report_category_id.setValue(reportCategories[0].id);
+      }
+    });
   }
 
   submit() {

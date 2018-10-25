@@ -41,6 +41,9 @@
                 tableName: 'categories',
                 services: function() {
                     return this.hasMany(Services);
+                },
+                reportCategory: function() {
+                    return this.belongsTo(ReportCategories);
                 }
             });
             var Services = bookshelf.Model.extend({
@@ -80,6 +83,12 @@
                 },
                 material: function() {
                     return this.belongsTo(Materials);
+                }
+            });
+            var ReportCategories = bookshelf.Model.extend({
+                tableName: 'report_categories',
+                materials: function() {
+                    return this.hasMany(Categories);
                 }
             });
         }

@@ -32,11 +32,11 @@
             <table class="table table-bordered table-striped table-condensed" #table>
               <thead>
                 <tr>
-                  <th class="text-center" [attr.colspan]="4 + categories.length + materials.length">Percetakan Bulan {{month | date: 'MMMM yyyy'}}</th>
+                  <th class="text-center" [attr.colspan]="4 + reportCategories.length + materials.length">Percetakan Bulan {{month | date: 'MMMM yyyy'}}</th>
                 </tr>
                 <tr>
                   <th>Tanggal</th>
-                  <th *ngFor="let category of categories">{{category.name}}</th>
+                  <th *ngFor="let category of reportCategories">{{category.name}}</th>
                   <th>Total</th>
                   <th *ngFor="let material of materials">{{material.name}}</th>
                   <th>Total</th>
@@ -46,7 +46,7 @@
               <tbody>
                 <tr *ngFor="let row of data">
                   <td>{{row.day_of_month}}</td>
-                  <td *ngFor="let category of categories" class="text-right">
+                  <td *ngFor="let category of reportCategories" class="text-right">
                     <ng-container *ngIf="row.transactionsData[category.id] > 0">
                       {{row.transactionsData[category.id]}}
                     </ng-container>
