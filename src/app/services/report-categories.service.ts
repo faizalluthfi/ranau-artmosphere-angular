@@ -14,6 +14,9 @@ export class ReportCategoriesService {
     return new window['ReportCategories']()
       .fetchAll()
       .then(result => {
-        this.reportCategories.next(result.toJSON());
+        const reportCategories = result.toJSON();
+        this.reportCategories.next(reportCategories);
+        return reportCategories;
       });
+  }
 }
