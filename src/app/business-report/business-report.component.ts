@@ -70,7 +70,8 @@ export class BusinessReportComponent implements OnInit {
             this.columnDefs = [];
             this.columnDefs.push({
               headerName: 'Tanggal',
-              field: 'day_of_month'
+              field: 'day_of_month',
+              pinned: 'left'
             });
             this.reportCategories.forEach(category => {
               this.columnDefs.push({
