@@ -60,7 +60,7 @@
               {{services.controls[i].value.note}}
             </td>
             <td>
-              <button class="btn btn-danger" type="button" (click)="services.controls[i].controls.deleted.setValue(null); countServices()">
+              <button class="btn btn-danger" type="button" (click)="restoreService(i)">
                 <i class="ti-back-right"></i>
               </button>
             </td>

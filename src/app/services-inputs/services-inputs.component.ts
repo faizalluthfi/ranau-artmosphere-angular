@@ -42,12 +42,32 @@ export class ServicesInputsComponent implements OnInit {
     let services: FormArray = <FormArray>this.form.controls.services;
 
     if (this.id) {
-      (<FormGroup>services.controls[i]).controls.deleted.setValue(true);
+      const controls = (<FormGroup>services.controls[i]).controls;
+      controls.deleted.setValue(true);
+
+      // Update validation rules
+      controls.name.clearValidators();
+      controls.name.updateValueAndValidity();
+      controls.price.clearValidators();
+      controls.price.updateValueAndValidity();
     } else {
       services.removeAt(i);
     }
 
     this.countServices()
+  }
+
+  restoreService(i: number) {
+    const controls = (<FormGroup>this.services.controls[i]).controls;
+    controls.deleted.setValue(null);
+
+    // Update validation rules
+    controls.name.setValidators(Validators.required);
+    controls.name.updateValueAndValidity();
+    controls.price.setValidators(Validators.required);
+    controls.price.updateValueAndValidity();
+
+    this.countServices();
   }
 
   countServices() {
