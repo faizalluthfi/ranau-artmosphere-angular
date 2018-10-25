@@ -71,6 +71,7 @@ export class BusinessReportComponent implements OnInit {
             this.columnDefs.push({
               headerName: 'Tanggal',
               field: 'day_of_month',
+              cellClass: 'special-column',
               pinned: 'left'
             });
             this.reportCategories.forEach(category => {
@@ -84,7 +85,7 @@ export class BusinessReportComponent implements OnInit {
             this.columnDefs.push({
               headerName: 'Total',
               field: 'transactionsTotal',
-              cellClass: 'text-right',
+              cellClass: 'text-right special-column',
               valueFormatter: data => data.value > 0 ? this.decimalPipe.transform(data.value) : ''
             });
             this.materials.forEach(material => {
@@ -98,13 +99,13 @@ export class BusinessReportComponent implements OnInit {
             this.columnDefs.push({
               headerName: 'Total',
               field: 'expensesTotal',
-              cellClass: 'text-right',
+              cellClass: 'text-right special-column',
               valueFormatter: data => data.value > 0 ? this.decimalPipe.transform(data.value) : ''
             });
             this.columnDefs.push({
               headerName: 'Saldo',
               field: 'balance',
-              cellClass: 'text-right',
+              cellClass: 'text-right special-column',
               valueFormatter: data => data.value > 0 ? this.decimalPipe.transform(data.value) : ''
             });
             this.data = [];
