@@ -55,12 +55,13 @@ export class TransactionNoteComponent implements OnInit {
     let total = 0;
     transaction.items.forEach(item => {
       if (!item.deleted) {
-        total += item.nominal;
+        const subtotal = item.nominal * item.amount;
+        total += subtotal;
         let columns = [
           this.paddingPipe.transform(item.service.name     , {width: col0, align: 2}),
           this.paddingPipe.transform(this.decimalPipe.transform(item.nominal)    , {width: col1}),
           this.paddingPipe.transform(this.decimalPipe.transform(item.amount)    , {width: col2}),
-          this.paddingPipe.transform(this.decimalPipe.transform(item.nominal * item.amount)    , {width: col3})
+          this.paddingPipe.transform(this.decimalPipe.transform(subtotal)    , {width: col3})
         ];
         str.push(columns.join(''));
       }
