@@ -11,8 +11,8 @@
             &nbsp;
             <button class="btn btn-primary" type="button" (click)="export()"><i class="ti-download"></i></button>
           </div>
-          <h4 class="title report-title">Percetakan Bulan <span class="visible-print-inline">{{month | date: 'MMMM yyyy'}}</span></h4>
-          <p class="category hidden-print">{{month | date: 'MMMM yyyy'}}</p>
+          <h4 class="title">Laporan Keuangan</h4>
+          <p class="category">{{month | date: 'MMMM yyyy'}}</p>
           <div class="clearfix"></div>
         </div>
         <div class="content" id="card-content">
@@ -27,53 +27,6 @@
               (modelUpdated)="gridModelUpdated($event)"
               [suppressColumnVirtualisation]="true">
             </ag-grid-angular>
-          </div>
-          <div class="table-responsive hidden">
-            <table class="table table-bordered table-striped table-condensed" #table>
-              <thead>
-                <tr>
-                  <th class="text-center" [attr.colspan]="4 + reportCategories.length + materials.length">Percetakan Bulan {{month | date: 'MMMM yyyy'}}</th>
-                </tr>
-                <tr>
-                  <th>Tanggal</th>
-                  <th *ngFor="let category of reportCategories">{{category.name}}</th>
-                  <th>Total</th>
-                  <th *ngFor="let material of materials">{{material.name}}</th>
-                  <th>Total</th>
-                  <th>Saldo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let row of data">
-                  <td>{{row.day_of_month}}</td>
-                  <td *ngFor="let category of reportCategories" class="text-right">
-                    <ng-container *ngIf="row.transactionsData[category.id] > 0">
-                      {{row.transactionsData[category.id]}}
-                    </ng-container>
-                  </td>
-                  <td class="text-right">
-                    <ng-container *ngIf="row.transactionsTotal > 0">
-                      {{row.transactionsTotal}}
-                    </ng-container>
-                  </td>
-                  <td *ngFor="let material of materials" class="text-right">
-                    <ng-container *ngIf="row.expensesData[material.id] > 0">
-                      {{row.expensesData[material.id]}}
-                    </ng-container>
-                  </td>
-                  <td class="text-right">
-                    <ng-container *ngIf="row.expensesTotal > 0">
-                      {{row.expensesTotal}}
-                    </ng-container>
-                  </td>
-                  <td class="text-right">
-                    <ng-container *ngIf="row.transactionsTotal > 0 || row.expensesTotal > 0">
-                      {{row.balance}}
-                    </ng-container>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>

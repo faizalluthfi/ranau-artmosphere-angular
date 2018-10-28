@@ -19,21 +19,6 @@ tr[routerLinkActive]:hover td {
   overflow: auto;
 }
 
-@media print {
-  .sidebar,
-  app-pagination {
-    display: none;
-  }
-
-  .main-panel {
-    width: 100%;
-  }
-
-  .report-title {
-    text-align: center;
-  }
-}
-
 .ag-row-even .special-column {
   background-color: #f5f5f5;
 }
