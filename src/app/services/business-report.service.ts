@@ -11,7 +11,7 @@ export class BusinessReportService {
       .select([
         knex.raw("strftime('%d', datetime(transactions.created_at/1000, 'unixepoch', 'localtime')) as day_of_month"),
         knex.raw("categories.report_category_id"),
-        knex.raw("SUM(transaction_items.nominal) as nominal")
+        knex.raw("SUM(transaction_items.nominal * transaction_items.amount) as nominal")
       ])
       .leftJoin('services', 'transaction_items.service_id', 'services.id')
       .leftJoin('categories', 'services.category_id', 'categories.id')

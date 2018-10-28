@@ -106,6 +106,11 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.form.controls.total.setValue(value);
     this.grandTotal = value - (parseInt(this.form.value.discount) || 0);
 
+    if (!this.transaction.id && this.form.controls.money_nominal.pristine) {
+      this.form.controls.money_nominal.setValue(this.grandTotal);
+      this.form.controls.money_nominal.markAsPristine();
+    }
+
     this.moneyChange = (parseInt(this.form.value.money_nominal) || 0) - this.grandTotal;
 
     return this.total = value;
