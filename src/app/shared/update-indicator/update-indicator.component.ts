@@ -54,7 +54,7 @@ export class UpdateIndicatorComponent implements OnInit {
         this.startRegularUpdateCheck();
       });
     });
-    window['autoUpdater'].on('download-progress', (_ev, progressObj) => {
+    window['autoUpdater'].on('download-progress', progressObj => {
       this.zone.run(() => {
         const status = `Mendownload ${Math.floor(progressObj.percent)}`;
         console.log(status);
@@ -62,7 +62,7 @@ export class UpdateIndicatorComponent implements OnInit {
         this.updateDownloaded = false;
       });
     });
-    window['autoUpdater'].on('update-downloaded', (_ev, info) => {
+    window['autoUpdater'].on('update-downloaded', info => {
         this.zone.run(() => {
           this.status = `Versi ${info.version} siap pasang`
           this.updateDownloaded = true;
