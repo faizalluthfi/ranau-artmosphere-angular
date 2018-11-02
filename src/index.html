@@ -59,6 +59,9 @@
                 tableName: 'transactions',
                 items: function() {
                     return this.hasMany(TransactionItems);
+                },
+                user: function() {
+                    return this.belongsTo(Users);
                 }
             });
             var TransactionItems = bookshelf.Model.extend({
@@ -89,6 +92,12 @@
                 tableName: 'report_categories',
                 materials: function() {
                     return this.hasMany(Categories);
+                }
+            });
+            var Users = bookshelf.Model.extend({
+                tableName: 'users',
+                transactions: function() {
+                    return this.hasMany(Transactions);
                 }
             });
         }
