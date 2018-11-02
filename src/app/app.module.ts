@@ -46,6 +46,8 @@ import { FormAutoHeightDirective } from './directives/form-auto-height.directive
 import { TransactionFormAutoHeightDirective } from './directives/transaction-form-auto-height.directive';
 import { ReportCategoriesComponent } from './report-categories/report-categories.component';
 import { ReportCategoryFormComponent } from './report-category-form/report-category-form.component';
+import { UsersComponent } from './users/users.component';
+import { UserFormComponent } from './user-form/user-form.component';
 
 registerLocaleData(localeId, 'id');
 
@@ -82,7 +84,9 @@ registerLocaleData(localeId, 'id');
     FormAutoHeightDirective,
     TransactionFormAutoHeightDirective,
     ReportCategoriesComponent,
-    ReportCategoryFormComponent
+    ReportCategoryFormComponent,
+    UsersComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
