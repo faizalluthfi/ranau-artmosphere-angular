@@ -1,3 +1,37 @@
-<p>
-  users works!
-</p>
+<div class="row">
+  <div class="col-md-{{route.children.length > 0 ? '6 hidden-sm hidden-xs' : 12}}">
+    <div class="card">
+      <div class="header" id="card-header">
+        <div class="pull-right">
+          <a class="btn btn-primary" [routerLink]="['new']">
+            <i class="ti-plus"></i>
+            Baru
+          </a>
+        </div>
+        <h4 class="title">User</h4>
+        <div class="clearfix"></div>
+      </div>
+      <div class="content" id="card-content">
+      
+        <ng-container *ngIf="users; else loading">
+          <div *ngIf="users.length > 0; else noUsers" class="table-responsive" appListAutoHeight>
+            <table class="table table-bordered table-condensed table-striped">
+              <tbody>
+                <tr *ngFor="let user of users" [routerLink]="[user.id]" routerLinkActive="info">
+                  <td>{{user.name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="route.children.length > 0"><router-outlet></router-outlet></div>
+</div>
+<ng-template #noUsers>
+  <p>Data user kosong.</p>
+</ng-template>
+<ng-template #loading>
+  <p>Membaca data...</p>
+</ng-template>

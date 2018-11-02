@@ -24,6 +24,7 @@ import { BusinessReportComponent } from './business-report/business-report.compo
 import { BackupAndRestoreComponent } from './backup-and-restore/backup-and-restore.component';
 import { ReportCategoriesComponent } from './report-categories/report-categories.component';
 import { ReportCategoryFormComponent } from './report-category-form/report-category-form.component';
+import { UsersComponent } from './users/users.component';
 
 export const AppRoutes: Routes = [
     {
@@ -106,6 +107,10 @@ export const AppRoutes: Routes = [
                 component: ReportCategoryFormComponent
             }
         ]
+    },
+    {
+        path: 'users',
+        component: UsersComponent
     },
     {
         path: 'settings',
