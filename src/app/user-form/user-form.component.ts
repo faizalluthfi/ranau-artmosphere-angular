@@ -1,19 +1,22 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { UsersService } from '../services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
 import { User } from '../classes/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   user: User;
+  error: String;
+  subscriptions: Subscription[] = [];
 
   constructor(
     formBuilder: FormBuilder,
@@ -32,9 +35,14 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subscriptions = [
+      this.service.error.subscribe(error => this.error = error),
+      this.form.valueChanges.subscribe(() => this.error = null)
+    ];
     this.route.params.subscribe(params => {
       this.form.controls.password.clearValidators();
       this.form.reset();
+      this.error = null;
       if (params.id) {
         this.service.getUser(params.id).then(user => {
           this.user = user;
@@ -50,6 +58,10 @@ export class UserFormComponent implements OnInit {
         this.user = new User();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   submit() {
@@ -71,12 +83,14 @@ export class UserFormComponent implements OnInit {
 
   private userAfterSave(user: User) {
     this.zone.run(() => {
-      this.notificationService.setNotification(
-        `User berhasil ${user.deleted ? 'dihapus' : 'disimpan'}.`,
-        'success'
-      );
-      this.usersService.getUsers();
-      this.router.navigate(['..'], {relativeTo: this.route});
+      if (user) {
+        this.notificationService.setNotification(
+          `User berhasil ${user.deleted ? 'dihapus' : 'disimpan'}.`,
+          'success'
+        );
+        this.usersService.getUsers();
+        this.router.navigate(['..'], {relativeTo: this.route});
+      }
     })
   }
 

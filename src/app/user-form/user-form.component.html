@@ -6,6 +6,7 @@
     <h4 class="title" *ngIf="user">{{user.id ? 'Edit User' : 'Tambah User'}}</h4>
   </div>
   <div class="content">
+    <p *ngIf="error" class="text-danger">{{error}}</p>
     <form [formGroup]="form" (ngSubmit)="submit()" class="form-horizontal">
       <div class="form-group">
         <label for="user-name" class="control-label text-left col-xs-6 col-md-4">Nama</label>
