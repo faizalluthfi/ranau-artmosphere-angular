@@ -32,10 +32,11 @@ export class TransactionNoteComponent implements OnInit {
     str.push(this.paddingPipe.transform('Jl. D Ranau Raya G7B/4 (712920)', {width: width, align: 3}));
     str.push('');
 
-    let time = this.datePipe.transform(transaction.created_at, 'dd/MM/yyyy hh:mm:ss');
     let line = Array(width + 1).join('-');
 
-    str.push(time);
+    let time = this.datePipe.transform(transaction.created_at, 'dd/MM/yyyy hh:mm:ss');
+    let user_col_width = width - time.length - 1;
+    str.push(time + ' ' + this.paddingPipe.transform(transaction.user.name, {width: user_col_width}));
 
     const col1 = 8;
     const col2 = 7;

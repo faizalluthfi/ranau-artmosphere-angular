@@ -48,6 +48,7 @@ import { ReportCategoriesComponent } from './report-categories/report-categories
 import { ReportCategoryFormComponent } from './report-category-form/report-category-form.component';
 import { UsersComponent } from './users/users.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { LoginComponent } from './login/login.component';
 
 registerLocaleData(localeId, 'id');
 
@@ -86,7 +87,8 @@ registerLocaleData(localeId, 'id');
     ReportCategoriesComponent,
     ReportCategoryFormComponent,
     UsersComponent,
-    UserFormComponent
+    UserFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
