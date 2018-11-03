@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Transaction } from '../classes/transaction';
 import * as promise from 'bluebird';
 import * as moment from 'moment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,11 @@ import * as moment from 'moment';
 export class TransactionService {
   readonly transaction: Subject<Transaction> = new Subject<Transaction>();
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   getTransaction(id: number) {
     return window['Transactions'].where('id', id)
-      .fetch({withRelated: ['items.service']})
+      .fetch({withRelated: ['items.service', 'user']})
       .then(result => {
         return result.toJSON();
       });
@@ -23,6 +24,7 @@ export class TransactionService {
   createTransaction(transaction: Transaction) {
     let values: any = Object.assign({created_at: moment().valueOf()}, transaction);
     delete values.items;
+    values.user_id = this.authService.user.id;
     return new window['Transactions']()
       .save(values)
       .then(savedTransaction => {
