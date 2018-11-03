@@ -26,6 +26,8 @@ import { ReportCategoriesComponent } from './report-categories/report-categories
 import { ReportCategoryFormComponent } from './report-category-form/report-category-form.component';
 import { UsersComponent } from './users/users.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const AppRoutes: Routes = [
     {
@@ -34,24 +36,33 @@ export const AppRoutes: Routes = [
         pathMatch: 'full',
     },
     {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
         path: 'backup-and-restore',
-        component: BackupAndRestoreComponent
+        component: BackupAndRestoreComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'report',
-        component: BusinessReportComponent
+        component: BusinessReportComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'transactions/new',
-        component: TransactionComponent
+        component: TransactionComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'transactions/:id',
-        component: TransactionComponent
+        component: TransactionComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'transactions',
-        component: TransactionsListComponent
+        component: TransactionsListComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'daily-expenses',
@@ -65,7 +76,8 @@ export const AppRoutes: Routes = [
                 path: ':id',
                 component: DailyUseFormComponent
             },
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
     {
         path: 'categories',
@@ -79,7 +91,8 @@ export const AppRoutes: Routes = [
                 path: ':id',
                 component: EditCategoryComponent
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
     {
         path: 'materials',
@@ -93,7 +106,8 @@ export const AppRoutes: Routes = [
                 path: ':id',
                 component: EditMaterialComponent
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
     {
         path: 'report-categories',
@@ -107,7 +121,8 @@ export const AppRoutes: Routes = [
                 path: ':id',
                 component: ReportCategoryFormComponent
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
     {
         path: 'users',
@@ -121,11 +136,13 @@ export const AppRoutes: Routes = [
                 path: ':id',
                 component: UserFormComponent
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
     {
         path: 'settings',
-        component: SettingComponent
+        component: SettingComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'quit',
