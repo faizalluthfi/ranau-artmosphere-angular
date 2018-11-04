@@ -16,9 +16,16 @@
         <ng-container *ngIf="users; else loading">
           <div *ngIf="users.length > 0; else noUsers" class="table-responsive" appListAutoHeight>
             <table class="table table-bordered table-condensed table-striped">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Peran</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr *ngFor="let user of users" [routerLink]="[user.id]" routerLinkActive="info">
                   <td>{{user.name}}</td>
+                  <td>{{ROLES[user.role_id]}}</td>
                 </tr>
               </tbody>
             </table>
