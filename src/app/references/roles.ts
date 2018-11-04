@@ -1,0 +1,1 @@
+export const ROLES = [null, 'Admin', 'Kasir'];
