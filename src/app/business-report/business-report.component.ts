@@ -58,6 +58,7 @@ export class BusinessReportComponent implements OnInit {
   reportCategories: ReportCategory[] = [];
   materials: Material[] = [];
   data: any[];
+  totalRows: any[];
 
   columnDefs: any[];
   gridApi: any;
@@ -146,6 +147,12 @@ export class BusinessReportComponent implements OnInit {
               valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
             });
             this.data = [];
+            let totalRow = {
+              day_of_month: 'Total',
+              transactionsTotal: 0,
+              expensesTotal: 0,
+              balance: 0
+            };
             for (let i = 1; i <= moment(this.month).endOf('month').date(); i++) {
               let item: any = {
                 day_of_month: i
@@ -178,8 +185,19 @@ export class BusinessReportComponent implements OnInit {
             this.data.forEach((row, i) => {
               for (let key in row) {
                 if (!row[key]) this.data[i][key] = '';
+
+                const value = this.data[i][key] || 0;
+
+                if (key != 'day_of_month') {
+                  totalRow[key] = totalRow[key] || 0;
+                  totalRow[key] += value;
+                }
               }
             });
+            for (let key in totalRow) {
+              if (!totalRow[key]) totalRow[key] = '';
+            }
+            this.totalRows = [totalRow];
             if(this.gridApi) this.gridApi.hideOverlay();
           });
       });
@@ -227,7 +245,7 @@ export class BusinessReportComponent implements OnInit {
         {start: {row: 1, column: 1}, end: {row: 1, column: this.columnDefs.length}}
       ],
       specification: specification,
-      data: this.data
+      data: [].concat(this.data, this.totalRows)
     }));
   }
 

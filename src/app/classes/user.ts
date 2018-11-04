@@ -6,6 +6,7 @@ export class User {
   role_id: number;
   deleted: boolean;
   password: String;
+  password_confirmation: String;
   transactions: Transaction[] = [];
 
   constructor(values: Object = {}) {

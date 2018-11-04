@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="header">
+      <h4 class="title">Ubah Profil</h4>
+    </div>
+    <div class="content">
+      <p *ngIf="error" class="text-danger">{{error}}</p>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="form-horizontal">
+        <div class="form-group">
+          <label for="user-name" class="control-label text-left col-xs-6 col-md-4">Nama</label>
+          <div class="col-xs-6 col-md-8">
+            <input id="user-name" type="text" class="form-control border-input" formControlName="name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="user-password" class="control-label text-left col-xs-6 col-md-4">Password</label>
+          <div class="col-xs-6 col-md-8">
+            <input id="user-password" type="password" class="form-control border-input" formControlName="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="user-password-confirmation" class="control-label text-left col-xs-6 col-md-4">Ulangi Password</label>
+          <div class="col-xs-6 col-md-8">
+            <input id="user-password-confirmation" type="password" class="form-control border-input" formControlName="password_confirmation">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <button *ngIf="user && user.id && user.id != 1" class="btn btn-secondary" type="button" (click)="delete()">
+              <i class="ti-close"></i>
+              Hapus
+            </button>
+          </div>
+          <div class="col-xs-6 text-right">
+            <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+              <i class="ti-check"></i>
+              Simpan
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

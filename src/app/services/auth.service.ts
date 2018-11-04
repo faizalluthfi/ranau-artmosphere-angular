@@ -22,8 +22,7 @@ export class AuthService {
       .then(result => {
         if (result) {
           let user = result.toJSON();
-          this.session.next(user);
-          sessionStorage.setItem('user', JSON.stringify(user));
+          this.updateUser(user);
           return user;
         }
         this.error.next('Username and password salah.')
@@ -33,8 +32,13 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.removeItem('user');
-    this.session.next(null);
+    this.updateUser();
+  }
+
+  updateUser(user: User = null) {
+    this.session.next(user);
+    if (user) sessionStorage.setItem('user', JSON.stringify(user));
+    else sessionStorage.removeItem('user');
   }
 
   get user(): User {
