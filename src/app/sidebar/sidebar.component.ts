@@ -7,9 +7,10 @@ declare var $:any;
 export interface RouteInfo {
     path: string;
     title: string;
-    icon: string;
-    class: string;
+    icon?: string;
+    class?: string;
     roles?: number[];
+    hidden?: boolean;
 }
 
 export const ROUTES: RouteInfo[] = [
@@ -17,6 +18,14 @@ export const ROUTES: RouteInfo[] = [
     { path: 'daily-expenses', title: 'Pengeluaran Harian',  icon: 'ti-list', class: '', roles: [1] },
     { path: 'report', title: 'Laporan',  icon: 'ti-view-list', class: '' },
     { path: 'backup-and-restore', title: 'Cadangan Data',  icon: 'ti-server', class: '', roles: [1] },
+
+    { path: 'categories', title: 'Kategori Layanan', hidden: true },
+    { path: 'materials', title: 'Kategori Pengeluaran', hidden: true },
+    { path: 'report-categories', title: 'Kategori Laporan', hidden: true },
+    { path: 'users', title: 'User', hidden: true },
+    { path: 'settings', title: 'Pengaturan', hidden: true },
+    { path: 'profile', title: 'Ubah Profil', hidden: true },
+    { path: 'login', title: 'Login', hidden: true },
 ];
 
 @Component({
@@ -38,10 +47,10 @@ export class SidebarComponent implements OnInit {
             if (user) {
                 ROUTES.forEach(route => {
                     if (route.roles) {
-                        if (route.roles.includes(user.role_id)) {
+                        if (route.roles.includes(user.role_id) && !route.hidden) {
                             this.menuItems.push(route);
                         }
-                    } else {
+                    } else if (!route.hidden) {
                         this.menuItems.push(route);
                     }
                 });

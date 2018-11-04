@@ -40,7 +40,7 @@ export class EditMaterialComponent implements OnInit {
 
   submit() {
     this.service.updateMaterial(this.material.id, this.form.value).tap(() => {
-      this.notificationService.setNotification('Bahan berhasil disimpan.', 'success');
+      this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.materialsService.getMaterials();
     this.router.navigate(['..'], {relativeTo: this.route});
     });
@@ -49,7 +49,7 @@ export class EditMaterialComponent implements OnInit {
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus bahan ini?')) {
       this.service.deleteMaterial(this.material.id).tap(() => {
-        this.notificationService.setNotification('Bahan berhasil dihapus.', 'success');
+        this.notificationService.setNotification('Kategori berhasil dihapus.', 'success');
         this.materialsService.getMaterials();
         this.router.navigate(['..'], {relativeTo: this.route});
       });
