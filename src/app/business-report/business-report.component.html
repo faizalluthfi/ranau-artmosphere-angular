@@ -22,6 +22,7 @@
               style="height: 100%;" 
               class="ag-theme-fresh"
               [rowData]="data" 
+              [pinnedBottomRowData]="totalRows"
               [columnDefs]="columnDefs"
               [enableColResize]="true"
               (modelUpdated)="gridModelUpdated($event)"
