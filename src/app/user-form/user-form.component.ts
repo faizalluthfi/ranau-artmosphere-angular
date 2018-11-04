@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
 import { User } from '../classes/user';
 import { Subscription } from 'rxjs';
+import { ROLES } from 'app/references/roles';
 
 @Component({
   selector: 'app-user-form',
@@ -17,6 +18,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   user: User;
   error: String;
   subscriptions: Subscription[] = [];
+  ROLES = ROLES;
 
   constructor(
     formBuilder: FormBuilder,
