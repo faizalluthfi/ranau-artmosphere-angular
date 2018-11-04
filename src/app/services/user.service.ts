@@ -33,6 +33,8 @@ export class UserService {
   }
 
   updateUser(id: number, user: User): any {
+    let values = Object.assign({}, user);
+    delete values.password_confirmation;
     return new window['Users']()
       .query(qb => {
         qb.where('name', user.name)
@@ -46,7 +48,7 @@ export class UserService {
           return null;
         }
         return new window['Users']('id', id)
-          .save(user)
+          .save(values)
           .then(result => { return this.sanitizeData(result) });
       });
   }

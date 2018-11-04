@@ -28,6 +28,7 @@ import { UsersComponent } from './users/users.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 export const AppRoutes: Routes = [
     {
@@ -38,6 +39,11 @@ export const AppRoutes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'profile',
+        component: EditProfileComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'backup-and-restore',
