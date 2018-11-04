@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { UsersService } from '../services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { NotificationService } from '../services/notification.service';
 import { User } from '../classes/user';
 import { Subscription } from 'rxjs';
 import { ROLES } from 'app/references/roles';
+import { CustomValidators } from 'ng2-validation';
 
 @Component({
   selector: 'app-user-form',
@@ -29,9 +30,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private zone: NgZone
   ) {
+    let password = new FormControl('');
+    let passwordConfirm = new FormControl('', CustomValidators.equalTo(password));
     this.form = formBuilder.group({
       name: [null, Validators.required],
-      password: [null],
+      password: password,
+      password_confirmation: passwordConfirm,
       role_id: [null]
     });
   }
