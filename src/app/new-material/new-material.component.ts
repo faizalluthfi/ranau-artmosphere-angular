@@ -31,7 +31,7 @@ export class NewMaterialComponent implements OnInit {
 
   submit() {
     this.service.createMaterial(this.form.value).tap(() => {
-      this.notificationService.setNotification('Bahan berhasil disimpan.', 'success');
+      this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.materialsService.getMaterials();
       this.router.navigate(['..'], {relativeTo: this.route});
     });

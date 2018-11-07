@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { UsersService } from '../services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +7,8 @@ import { NotificationService } from '../services/notification.service';
 import { User } from '../classes/user';
 import { Subscription } from 'rxjs';
 import { ROLES } from 'app/references/roles';
+import { CustomValidators } from 'ng2-validation';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-user-form',
@@ -16,6 +18,7 @@ import { ROLES } from 'app/references/roles';
 export class UserFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   user: User;
+  currentUser: User;
   error: String;
   subscriptions: Subscription[] = [];
   ROLES = ROLES;
@@ -25,18 +28,23 @@ export class UserFormComponent implements OnInit, OnDestroy {
     private service: UserService,
     private usersService: UsersService,
     private notificationService: NotificationService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone
   ) {
+    let password = new FormControl('');
+    let passwordConfirm = new FormControl('', CustomValidators.equalTo(password));
     this.form = formBuilder.group({
       name: [null, Validators.required],
-      password: [null],
+      password: password,
+      password_confirmation: passwordConfirm,
       role_id: [null]
     });
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.user;
     this.subscriptions = [
       this.service.error.subscribe(error => this.error = error),
       this.form.valueChanges.subscribe(() => this.error = null)
@@ -90,6 +98,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
           `User berhasil ${user.deleted ? 'dihapus' : 'disimpan'}.`,
           'success'
         );
+        if (user.id == this.currentUser.id) {
+          this.authService.updateUser(user);
+        }
         this.usersService.getUsers();
         this.router.navigate(['..'], {relativeTo: this.route});
       }
