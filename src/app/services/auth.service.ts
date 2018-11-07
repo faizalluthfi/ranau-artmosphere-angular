@@ -36,8 +36,13 @@ export class AuthService {
   }
 
   updateUser(user: User = null) {
-    this.session.next(user);
-    if (user) sessionStorage.setItem('user', JSON.stringify(user));
+    let newUserData = user;
+    if (user) {
+      newUserData = Object.assign({}, this.user);
+      Object.assign(newUserData, user);
+    }
+    this.session.next(newUserData);
+    if (user) sessionStorage.setItem('user', JSON.stringify(newUserData));
     else sessionStorage.removeItem('user');
   }
 
