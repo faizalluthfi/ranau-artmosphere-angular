@@ -64,7 +64,7 @@ export class UserService {
 
   private sanitizeData(result: any) {
     let user = result.toJSON();
-    user.password = null;
+    delete user.password;
     return user;
   }
 }
