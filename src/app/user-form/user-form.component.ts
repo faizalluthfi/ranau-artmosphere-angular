@@ -98,6 +98,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
           `User berhasil ${user.deleted ? 'dihapus' : 'disimpan'}.`,
           'success'
         );
+        if (user.id == this.currentUser.id) {
+          this.authService.updateUser(user);
+        }
         this.usersService.getUsers();
         this.router.navigate(['..'], {relativeTo: this.route});
       }
