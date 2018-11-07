@@ -46,14 +46,14 @@ export class ReportCategoryFormComponent implements OnInit {
   submit() {
     if (this.reportCategory.id) {
       this.service.updateReportCategory(this.reportCategory.id, this.form.value).tap(() => {
-        this.notificationService.setNotification('Bahan berhasil disimpan.', 'success');
+        this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
         this.reportCategoriesService.getReportCategories();
         this.router.navigate(['..'], {relativeTo: this.route});
       });
       return;
     }
     this.service.createReportCategory(this.form.value).tap(() => {
-      this.notificationService.setNotification('Bahan berhasil disimpan.', 'success');
+      this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.reportCategoriesService.getReportCategories();
       this.router.navigate(['..'], {relativeTo: this.route});
     });

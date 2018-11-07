@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit{
     private nativeElement: Node;
     private toggleButton;
     private sidebarVisible: boolean;
-    private user: User;
+    user: User;
 
     @ViewChild("navbar-cmp") button;
 
