@@ -8,6 +8,7 @@ import { User } from '../classes/user';
 import { Subscription } from 'rxjs';
 import { ROLES } from 'app/references/roles';
 import { CustomValidators } from 'ng2-validation';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-user-form',
@@ -17,6 +18,7 @@ import { CustomValidators } from 'ng2-validation';
 export class UserFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   user: User;
+  currentUser: User;
   error: String;
   subscriptions: Subscription[] = [];
   ROLES = ROLES;
@@ -26,6 +28,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
     private service: UserService,
     private usersService: UsersService,
     private notificationService: NotificationService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone
@@ -41,6 +44,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.user;
     this.subscriptions = [
       this.service.error.subscribe(error => this.error = error),
       this.form.valueChanges.subscribe(() => this.error = null)
@@ -94,6 +98,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
           `User berhasil ${user.deleted ? 'dihapus' : 'disimpan'}.`,
           'success'
         );
+        if (user.id == this.currentUser.id) {
+          this.authService.updateUser(user);
+        }
         this.usersService.getUsers();
         this.router.navigate(['..'], {relativeTo: this.route});
       }
