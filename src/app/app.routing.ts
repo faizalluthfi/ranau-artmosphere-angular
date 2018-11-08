@@ -38,37 +38,58 @@ export const AppRoutes: Routes = [
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        data: {
+            title: 'Login'
+        }
     },
     {
         path: 'profile',
         component: EditProfileComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Ubah Profil'
+        }
     },
     {
         path: 'backup-and-restore',
         component: BackupAndRestoreComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Cadangan Data'
+        }
     },
     {
         path: 'report',
         component: BusinessReportComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Laporan Keuangan'
+        }
     },
     {
         path: 'transactions/new',
         component: TransactionComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Transaksi Baru'
+        }
     },
     {
         path: 'transactions/:id',
         component: TransactionComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Ubah Transaksi'
+        }
     },
     {
         path: 'transactions',
         component: TransactionsListComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Transaksi'
+        }
     },
     {
         path: 'daily-expenses',
@@ -76,14 +97,23 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: 'new',
-                component: DailyUseFormComponent
+                component: DailyUseFormComponent,
+                data: {
+                    title: 'Pengeluaran Baru'
+                }
             },
             {
                 path: ':id',
-                component: DailyUseFormComponent
+                component: DailyUseFormComponent,
+                data: {
+                    title: 'Ubah Pengeluaran'
+                }
             },
         ],
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Pengeluaran'
+        }
     },
     {
         path: 'categories',
@@ -91,14 +121,23 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: 'new',
-                component: NewCategoryComponent
+                component: NewCategoryComponent,
+                data: {
+                    title: 'Kategori Baru'
+                }
             },
             {
                 path: ':id',
-                component: EditCategoryComponent
+                component: EditCategoryComponent,
+                data: {
+                    title: 'Ubah Kategori'
+                }
             }
         ],
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Kategori Layanan'
+        }
     },
     {
         path: 'materials',
@@ -106,14 +145,23 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: 'new',
-                component: NewMaterialComponent
+                component: NewMaterialComponent,
+                data: {
+                    title: 'Kategori Baru'
+                }
             },
             {
                 path: ':id',
-                component: EditMaterialComponent
+                component: EditMaterialComponent,
+                data: {
+                    title: 'Ubah Kategori'
+                }
             }
         ],
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Kategori Pengeluaran'
+        }
     },
     {
         path: 'report-categories',
@@ -121,14 +169,23 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: 'new',
-                component: ReportCategoryFormComponent
+                component: ReportCategoryFormComponent,
+                data: {
+                    title: 'Kategori Baru'
+                }
             },
             {
                 path: ':id',
-                component: ReportCategoryFormComponent
+                component: ReportCategoryFormComponent,
+                data: {
+                    title: 'Ubah Kategori'
+                }
             }
         ],
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Kategori Laporan'
+        }
     },
     {
         path: 'users',
@@ -136,19 +193,31 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: 'new',
-                component: UserFormComponent
+                component: UserFormComponent,
+                data: {
+                    title: 'User Baru'
+                }
             },
             {
                 path: ':id',
-                component: UserFormComponent
+                component: UserFormComponent,
+                data: {
+                    title: 'Ubah User'
+                }
             }
         ],
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'User'
+        }
     },
     {
         path: 'settings',
         component: SettingComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Pengaturan'
+        }
     },
     {
         path: 'quit',
