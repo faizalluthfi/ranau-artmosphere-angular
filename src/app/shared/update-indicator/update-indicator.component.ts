@@ -56,7 +56,7 @@ export class UpdateIndicatorComponent implements OnInit {
     });
     window['autoUpdater'].on('download-progress', progressObj => {
       this.zone.run(() => {
-        const status = `Mendownload ${Math.floor(progressObj.percent)}`;
+        const status = `Mendownload ${Math.floor(progressObj.percent)}%`;
         console.log(status);
         this.status = status;
         this.updateDownloaded = false;
