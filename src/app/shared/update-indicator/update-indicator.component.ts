@@ -99,7 +99,7 @@ export class UpdateIndicatorComponent implements OnInit {
   }
 
   applyUpdate() {
-    window['autoUpdater'].quitAndInstall();
+    window['ipc'].send('apply-update');
   }
 
 }
