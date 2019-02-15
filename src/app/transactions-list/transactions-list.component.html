@@ -24,7 +24,7 @@
               <tbody>
                 <tr *ngFor="let transaction of transactions" [routerLink]="[transaction.id]" routerLinkActive="info">
                   <td>{{transaction.created_at | date: 'full'}}</td>
-                  <td class="text-right">{{transaction.total | number}}</td>
+                  <td class="text-right">{{transaction.total - transaction.discount | number}}</td>
                 </tr>
               </tbody>
             </table>

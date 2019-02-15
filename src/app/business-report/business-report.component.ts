@@ -100,107 +100,112 @@ export class BusinessReportComponent implements OnInit {
     this.loadData();
   }
 
-  loadData() {
-    this.service.loadTransactionsData(this.month)
-      .then(transactionsData => {
-        this.service.loadExpensesData(this.month)
-          .then(expensesData => {
-            this.columnDefs = [];
-            this.columnDefs.push({
-              headerName: 'Tanggal',
-              field: 'day_of_month',
-              cellClass: 'special-column',
-              pinned: 'left'
-            });
-            this.reportCategories.forEach(category => {
-              this.columnDefs.push({
-                headerName: category.name,
-                field: `transactions${category.id}`,
-                cellClass: 'text-right',
-                valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
-              });
-            });
-            this.columnDefs.push({
-              headerName: 'Total',
-              field: 'transactionsTotal',
-              cellClass: 'text-right special-column',
-              valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
-            });
-            this.materials.forEach(material => {
-              this.columnDefs.push({
-                headerName: material.name,
-                field: `expenses${material.id}`,
-                cellClass: 'text-right',
-                valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
-              });
-            });
-            this.columnDefs.push({
-              headerName: 'Total',
-              field: 'expensesTotal',
-              cellClass: 'text-right special-column',
-              valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
-            });
-            this.columnDefs.push({
-              headerName: 'Saldo',
-              field: 'balance',
-              cellClass: 'text-right special-column',
-              valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
-            });
-            this.data = [];
-            let totalRow = {
-              day_of_month: 'Total',
-              transactionsTotal: 0,
-              expensesTotal: 0,
-              balance: 0
-            };
-            for (let i = 1; i <= moment(this.month).endOf('month').date(); i++) {
-              let item: any = {
-                day_of_month: i
-              };
-              this.reportCategories.forEach(category => {
-                item[`transactions${category.id}`] = 0;
-              });
-              item.transactionsTotal = 0;
-              this.materials.forEach(material => {
-                item[`expenses${material.id}`] = 0;
-              });
-              item.expensesTotal = 0;
-              item.balance = 0;
-              this.data.push(item);
-            }
-            transactionsData.forEach(data => {
-              const row = this.data[data.day_of_month - 1];
-              const value = parseInt(data.nominal);
-              row[`transactions${data.report_category_id}`] = value ? value : '';
-              row.transactionsTotal += value;
-              row.balance += value;
-            });
-            expensesData.forEach(data => {
-              const row = this.data[data.day_of_month - 1];
-              const value = parseInt(data.nominal) || 0;
-              row[`expenses${data.material_id}`] = value ? value : '';
-              row.expensesTotal += value;
-              row.balance -= value;
-            });
-            this.data.forEach((row, i) => {
-              for (let key in row) {
-                if (!row[key]) this.data[i][key] = '';
+  async loadData() {
+    const transactionsData = await this.service.loadTransactionsData(this.month);
+    const expensesData = await this.service.loadExpensesData(this.month);
+    const discountData = await this.service.loadDiscountData(this.month);
 
-                const value = this.data[i][key] || 0;
-
-                if (key != 'day_of_month') {
-                  totalRow[key] = totalRow[key] || 0;
-                  totalRow[key] += value;
-                }
-              }
-            });
-            for (let key in totalRow) {
-              if (!totalRow[key]) totalRow[key] = '';
-            }
-            this.totalRows = [totalRow];
-            if(this.gridApi) this.gridApi.hideOverlay();
-          });
+    this.columnDefs = [];
+    this.columnDefs.push({
+      headerName: 'Tanggal',
+      field: 'day_of_month',
+      cellClass: 'special-column',
+      pinned: 'left'
+    });
+    this.reportCategories.forEach(category => {
+      this.columnDefs.push({
+        headerName: category.name,
+        field: `transactions${category.id}`,
+        cellClass: 'text-right',
+        valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
       });
+    });
+    this.columnDefs.push({
+      headerName: 'Total',
+      field: 'transactionsTotal',
+      cellClass: 'text-right special-column',
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+    });
+    this.materials.forEach(material => {
+      this.columnDefs.push({
+        headerName: material.name,
+        field: `expenses${material.id}`,
+        cellClass: 'text-right',
+        valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+      });
+    });
+    this.columnDefs.push({
+      headerName: 'Diskon',
+      field: 'discount',
+      cellClass: 'text-right',
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+    });
+    this.columnDefs.push({
+      headerName: 'Total',
+      field: 'expensesTotal',
+      cellClass: 'text-right special-column',
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+    });
+    this.columnDefs.push({
+      headerName: 'Saldo',
+      field: 'balance',
+      cellClass: 'text-right special-column',
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+    });
+    this.data = [];
+    let totalRow = {
+      day_of_month: 'Total',
+      transactionsTotal: 0,
+      expensesTotal: 0,
+      balance: 0
+    };
+    for (let i = 1; i <= moment(this.month).endOf('month').date(); i++) {
+      let item: any = {day_of_month: i};
+      this.reportCategories.forEach(category => item[`transactions${category.id}`] = 0);
+      item.transactionsTotal = 0;
+      this.materials.forEach(material => item[`expenses${material.id}`] = 0);
+      item.expensesTotal = 0;
+      item.balance = 0;
+      this.data.push(item);
+    }
+    transactionsData.forEach(data => {
+      const row = this.data[data.day_of_month - 1];
+      const value = parseInt(data.nominal);
+      row[`transactions${data.report_category_id}`] = value ? value : '';
+      row.transactionsTotal += value;
+      row.balance += value;
+    });
+    expensesData.forEach(data => {
+      const row = this.data[data.day_of_month - 1];
+      const value = parseInt(data.nominal) || 0;
+      row[`expenses${data.material_id}`] = value ? value : '';
+      row.expensesTotal += value;
+      row.balance -= value;
+    });
+    discountData.forEach(data => {
+      const row = this.data[data.day_of_month - 1];
+      const value = parseInt(data.discount) || 0;
+      row[`discount`] = value ? value : '';
+      row.expensesTotal += value;
+      row.balance -= value;
+    });
+    this.data.forEach((row, i) => {
+      for (let key in row) {
+        if (!row[key]) this.data[i][key] = '';
+
+        const value = this.data[i][key] || 0;
+
+        if (key != 'day_of_month') {
+          totalRow[key] = totalRow[key] || 0;
+          totalRow[key] += value;
+        }
+      }
+    });
+    for (let key in totalRow) {
+      if (!totalRow[key]) totalRow[key] = '';
+    }
+    this.totalRows = [totalRow];
+    if(this.gridApi) this.gridApi.hideOverlay();
   }
 
   get previousMonth(): Moment {
