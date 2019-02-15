@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Material } from '../classes/material';
+import { Material } from '../../classes/material';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { MaterialService } from '../services/material.service';
-import { MaterialsService } from '../services/materials.service';
+import { MaterialService } from '../../services/material.service';
+import { MaterialsService } from '../../services/materials.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NotificationService } from '../services/notification.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-edit-material',

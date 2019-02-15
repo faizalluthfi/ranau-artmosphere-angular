@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MaterialService } from '../services/material.service';
-import { MaterialsService } from '../services/materials.service';
+import { MaterialService } from '../../services/material.service';
+import { MaterialsService } from '../../services/materials.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NotificationService } from '../services/notification.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-new-material',

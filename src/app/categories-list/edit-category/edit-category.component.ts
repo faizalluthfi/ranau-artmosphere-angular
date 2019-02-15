@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { CategoryService } from '../services/category.service';
-import { CategoriesService } from '../services/categories.service';
+import { CategoryService } from '../../services/category.service';
+import { CategoriesService } from '../../services/categories.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Category } from '../classes/category';
-import { NotificationService } from '../services/notification.service';
-import { ReportCategoriesService } from '../services/report-categories.service';
-import { ReportCategory } from '../classes/report-category';
+import { Category } from '../../classes/category';
+import { NotificationService } from '../../services/notification.service';
+import { ReportCategoriesService } from '../../services/report-categories.service';
+import { ReportCategory } from '../../classes/report-category';
 
 @Component({
   selector: 'app-edit-category',

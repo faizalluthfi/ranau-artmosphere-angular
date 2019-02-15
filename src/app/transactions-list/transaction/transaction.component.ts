@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Transaction } from '../classes/transaction';
-import { TransactionService } from '../services/transaction.service';
+import { Transaction } from '../../classes/transaction';
+import { TransactionService } from '../../services/transaction.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Category } from '../classes/category';
-import { CategoriesWithServicesService } from '../services/categories-with-services.service';
+import { Category } from '../../classes/category';
+import { CategoriesWithServicesService } from '../../services/categories-with-services.service';
 import { Subscription } from 'rxjs';
-import { Service } from '../classes/service';
-import { TransactionItem } from '../classes/transaction-item';
-import { TransactionNoteComponent } from '../transaction-note/transaction-note.component';
-import { NotificationService } from '../services/notification.service';
+import { Service } from '../../classes/service';
+import { TransactionItem } from '../../classes/transaction-item';
+import { TransactionNoteComponent } from './transaction-note/transaction-note.component';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-transaction',

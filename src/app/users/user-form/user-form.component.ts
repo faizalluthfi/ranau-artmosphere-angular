@@ -1,10 +1,10 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { UserService } from '../services/user.service';
-import { UsersService } from '../services/users.service';
+import { UserService } from '../../services/user.service';
+import { UsersService } from '../../services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NotificationService } from '../services/notification.service';
-import { User } from '../classes/user';
+import { NotificationService } from '../../services/notification.service';
+import { User } from '../../classes/user';
 import { Subscription } from 'rxjs';
 import { ROLES } from 'app/references/roles';
 import { CustomValidators } from 'ng2-validation';

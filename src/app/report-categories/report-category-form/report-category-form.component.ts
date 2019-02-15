@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ReportCategoryService } from '../services/report-category.service';
-import { ReportCategoriesService } from '../services/report-categories.service';
+import { ReportCategoryService } from '../../services/report-category.service';
+import { ReportCategoriesService } from '../../services/report-categories.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NotificationService } from '../services/notification.service';
-import { ReportCategory } from '../classes/report-category';
+import { NotificationService } from '../../services/notification.service';
+import { ReportCategory } from '../../classes/report-category';
 
 @Component({
   selector: 'app-report-category-form',

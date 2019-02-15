@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction } from '../classes/transaction';
-import { AppService } from '../services/app.service';
-import { PaddingPipe } from '../pipes/padding.pipe';
+import { Transaction } from '../../../classes/transaction';
+import { AppService } from '../../../services/app.service';
+import { PaddingPipe } from '../../../pipes/padding.pipe';
 import { DatePipe, DecimalPipe } from '@angular/common';
 
 @Component({
