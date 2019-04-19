@@ -29,6 +29,9 @@ export class AppComponent implements OnInit {
       if (clientSettings.printer_path) {
         this.service.sendToIpc('init-printer', clientSettings.printer_path);
       }
+      if (clientSettings.default_backup_path) {
+        this.service.sendToIpc('set-default-backup-path', clientSettings.default_backup_path);
+      }
     }
     this.service.handleIpcEvents([
       ['backup-succeed', () => {

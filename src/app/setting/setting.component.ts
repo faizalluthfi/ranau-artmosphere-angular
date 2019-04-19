@@ -3,6 +3,7 @@ import { AppService } from '../services/app.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
+import { Window } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-setting',
@@ -23,7 +24,8 @@ export class SettingComponent implements OnInit {
       printer_top_blank_lines: [null],
       printer_path: [null],
       printer_cpl: [null],
-      printer_bottom_blank_lines: [null]
+      printer_bottom_blank_lines: [null],
+      default_backup_path: [null]
     });
   }
 
@@ -37,6 +39,9 @@ export class SettingComponent implements OnInit {
     if (this.form.value.printer_path) {
       this.globalService.sendToIpc('init-printer', this.form.value.printer_path);
     }
+    if (this.form.value.default_backup_path) {
+      this.globalService.sendToIpc('set-default-backup-path', this.form.value.default_backup_path);
+    }
     this.notificationService.setNotification('Pengaturan berhasil disimpan.', 'success');
     this.router.navigate(['/']);
   }
@@ -45,6 +50,16 @@ export class SettingComponent implements OnInit {
     this.globalService.sendToIpc('test-printer', {
       printerPath: this.form.value.printer_path,
       test: 'Tes printer berhasil.'
+    });
+  }
+
+  selectBackupPath() {
+    window['dialog'].showOpenDialog({
+      properties: ['openFile', 'openDirectory']
+    }, files => {
+      if(files) {
+        this.form.controls.default_backup_path.setValue(files.toString());
+      }
     });
   }
 

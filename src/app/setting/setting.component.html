@@ -36,6 +36,15 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="setting-default-backup-path" class="control-label col-sm-4 col-xs-6 text-left">Lokasi Cadangan Data Otomatis</label>
+            <div class="col-sm-8 col-xs-6">
+              <button
+                (click)="selectBackupPath()"
+                type="button" id="setting-default-backup-path" class="btn btn-outline-secondary">Pilih Folder</button>
+              {{form.value.default_backup_path}}
+            </div>
+          </div>
+          <div class="form-group">
             <div class="col-xs-12 text-right">
               <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Simpan
                 <i class="ti-arrow-right"></i>

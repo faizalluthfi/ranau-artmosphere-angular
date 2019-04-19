@@ -7,7 +7,9 @@ export class AppService {
   private saveKey = 'client-settings';
 
   loadClientSettings() {
-    return JSON.parse(localStorage.getItem(this.saveKey)) || {};
+    const data = JSON.parse(localStorage.getItem(this.saveKey)) || {};
+    if (!data.default_backup_path) data.default_backup_path = window['defaultBackupPath'];
+    return data;
   }
 
   saveClientSettings(data) {
