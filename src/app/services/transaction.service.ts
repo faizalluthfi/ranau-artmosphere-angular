@@ -66,9 +66,4 @@ export class TransactionService {
         return result.toJSON();
       })
   }
-
-  deleteTransaction(id: number) {
-    return new window['Transactions']('id', id)
-      .save({deleted: true});
-  }
 }

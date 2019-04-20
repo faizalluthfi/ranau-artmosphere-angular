@@ -9,8 +9,6 @@ import { DailyUse } from '../classes/daily-use';
 export class DailyUseService {
   readonly dailyUse: Subject<DailyUse> = new Subject<DailyUse>();
 
-  constructor() { }
-
   getDailyUse(id: number) {
     return window['DailyUses'].where('id', id)
       .fetch({withRelated: ['materials.material']})
