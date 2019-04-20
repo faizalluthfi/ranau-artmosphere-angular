@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-backup-and-restore',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BackupAndRestoreComponent implements OnInit {
   private _dialogFilters:any;
+
+  constructor(private appService: AppService) {}
 
   ngOnInit() {
     this._dialogFilters =[
@@ -25,7 +28,7 @@ export class BackupAndRestoreComponent implements OnInit {
       filters: this._dialogFilters
     }, filename => {
       if(filename) {
-        window['ipc'].send('backup', filename);
+        this.appService.sendToIpc('backup', filename);
       }
     });
   }
@@ -37,7 +40,7 @@ export class BackupAndRestoreComponent implements OnInit {
       filters: this._dialogFilters
     }, files => {
       if(files) {
-        window['ipc'].send('restore', files.toString());
+        this.appService.sendToIpc('restore', files.toString());
       }
     });
   }

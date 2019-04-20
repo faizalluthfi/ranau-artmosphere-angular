@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-quit',
@@ -7,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuitComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   ngOnInit() {
-    window['ipc'].send('quit-application');
+    this.appService.sendToIpc('quit-application');
   }
 
 }

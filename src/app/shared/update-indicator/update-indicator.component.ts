@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-update-indicator',
@@ -14,7 +15,7 @@ export class UpdateIndicatorComponent implements OnInit {
 
   private readonly interval = 600000;
 
-  constructor(private zone: NgZone) {}
+  constructor(private appService: AppService, private zone: NgZone) {}
 
   ngOnInit() {
     let events = [
@@ -99,7 +100,7 @@ export class UpdateIndicatorComponent implements OnInit {
   }
 
   applyUpdate() {
-    window['ipc'].send('apply-update');
+    this.appService.sendToIpc('apply-update');
   }
 
 }

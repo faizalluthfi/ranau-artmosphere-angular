@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (IS_ELECTRON) {
-      window['ipc'].on('quit-application', () => {
+      this.service.handleIpcEvent('quit-application', () => {
         this.zone.run(() => this.router.navigate(['/quit']));
       });
       let clientSettings = this.service.loadClientSettings();
