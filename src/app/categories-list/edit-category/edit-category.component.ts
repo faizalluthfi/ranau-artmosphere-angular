@@ -7,6 +7,7 @@ import { Category } from '../../classes/category';
 import { NotificationService } from '../../services/notification.service';
 import { ReportCategoriesService } from '../../services/report-categories.service';
 import { ReportCategory } from '../../classes/report-category';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -22,6 +23,7 @@ export class EditCategoryComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private appService: AppService,
     private service: CategoryService,
     private categoriesService: CategoriesService,
     private reportCategoriesService: ReportCategoriesService,
@@ -69,6 +71,7 @@ export class EditCategoryComponent implements OnInit {
 
   submit() {
     this.service.updateCategory(this.category.id, this.form.value).tap(() => {
+      this.appService.sendToIpc('backup');
       this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.categoriesService.getCategories();
       this.router.navigate(['..'], {relativeTo: this.route});
@@ -78,6 +81,7 @@ export class EditCategoryComponent implements OnInit {
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus kategori ini?')) {
       this.service.deleteCategory(this.category.id).tap(() => {
+        this.appService.sendToIpc('backup');
         this.notificationService.setNotification('Kategori berhasil dihapus.', 'success');
         this.categoriesService.getCategories();
         this.router.navigate(['..'], {relativeTo: this.route});

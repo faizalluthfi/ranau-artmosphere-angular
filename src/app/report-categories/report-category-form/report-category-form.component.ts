@@ -5,6 +5,7 @@ import { ReportCategoriesService } from '../../services/report-categories.servic
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import { ReportCategory } from '../../classes/report-category';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-report-category-form',
@@ -17,6 +18,7 @@ export class ReportCategoryFormComponent implements OnInit {
 
   constructor(
     formBuilder: FormBuilder,
+    private appService: AppService,
     private service: ReportCategoryService,
     private reportCategoriesService: ReportCategoriesService,
     private notificationService: NotificationService,
@@ -46,6 +48,7 @@ export class ReportCategoryFormComponent implements OnInit {
   submit() {
     if (this.reportCategory.id) {
       this.service.updateReportCategory(this.reportCategory.id, this.form.value).tap(() => {
+        this.appService.sendToIpc('backup');
         this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
         this.reportCategoriesService.getReportCategories();
         this.router.navigate(['..'], {relativeTo: this.route});
@@ -53,6 +56,7 @@ export class ReportCategoryFormComponent implements OnInit {
       return;
     }
     this.service.createReportCategory(this.form.value).tap(() => {
+      this.appService.sendToIpc('backup');
       this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.reportCategoriesService.getReportCategories();
       this.router.navigate(['..'], {relativeTo: this.route});

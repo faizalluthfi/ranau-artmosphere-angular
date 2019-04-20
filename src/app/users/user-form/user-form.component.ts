@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { ROLES } from 'app/references/roles';
 import { CustomValidators } from 'ng2-validation';
 import { AuthService } from 'app/services/auth.service';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-user-form',
@@ -25,6 +26,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   constructor(
     formBuilder: FormBuilder,
+    private appService: AppService,
     private service: UserService,
     private usersService: UsersService,
     private notificationService: NotificationService,
@@ -75,32 +77,23 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.user.id) {
-      this.service.updateUser(this.user.id, this.form.value)
-        .tap(user => this.userAfterSave(user));
-      return;
-    }
-    this.service.createUser(this.form.value)
-      .tap(user => this.userAfterSave(user));
+    if (this.user.id) this.service.updateUser(this.user.id, this.form.value).tap(user => this.userAfterSave(user));
+    else this.service.createUser(this.form.value).tap(user => this.userAfterSave(user));
   }
 
   delete() {
-    if (window.confirm('Apakah anda yakin akan menghapus user ini?')) {
-      this.service.deleteUser(this.user.id)
-        .tap(user => this.userAfterSave(user));
-    }
+    if (window.confirm('Apakah anda yakin akan menghapus user ini?')) this.service.deleteUser(this.user.id).tap(user => this.userAfterSave(user));
   }
 
   private userAfterSave(user: User) {
     this.zone.run(() => {
       if (user) {
+        this.appService.sendToIpc('backup');
         this.notificationService.setNotification(
           `User berhasil ${user.deleted ? 'dihapus' : 'disimpan'}.`,
           'success'
         );
-        if (user.id == this.currentUser.id) {
-          this.authService.updateUser(user);
-        }
+        if (user.id == this.currentUser.id) this.authService.updateUser(user);
         this.usersService.getUsers();
         this.router.navigate(['..'], {relativeTo: this.route});
       }

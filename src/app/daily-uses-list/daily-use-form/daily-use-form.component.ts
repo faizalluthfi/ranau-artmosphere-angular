@@ -11,6 +11,7 @@ import { DailyUseService } from '../../services/daily-use.service';
 import { DailyUsesService } from '../../services/daily-uses.service';
 import { MaterialsService } from '../../services/materials.service';
 import { NotificationService } from '../../services/notification.service';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-daily-use-form',
@@ -28,6 +29,7 @@ export class DailyUseFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private appService: AppService,
     private dailyUsesService: DailyUsesService,
     private service: DailyUseService,
     private materialsService: MaterialsService,
@@ -115,6 +117,7 @@ export class DailyUseFormComponent implements OnInit {
       .tap(result => {
         this.service.getDailyUse(this.dailyUse.id || result.id).then(() => {
           this.zone.run(() => {
+            this.appService.sendToIpc('backup');
             this.notificationService.setNotification('Pengeluaran harian berhasil disimpan.', 'success');
             this.dailyUsesService.getDailyUses();
             this.router.navigate(['..'], { relativeTo: this.route });
