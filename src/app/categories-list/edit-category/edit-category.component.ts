@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { CategoriesService } from '../../services/categories.service';
@@ -15,7 +15,7 @@ import { AppService } from 'app/services/app.service';
   styleUrls: ['./edit-category.component.scss']
 })
 export class EditCategoryComponent implements OnInit {
-  @ViewChild('servicesInputs') servicesInputs;
+  @ViewChild('servicesInputs', { read: ElementRef, static: true }) servicesInputs;
   category: Category;
   form: FormGroup;
   category_id: number;

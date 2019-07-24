@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, NgZone, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Transaction } from '../../classes/transaction';
 import { TransactionService } from '../../services/transaction.service';
@@ -18,7 +18,7 @@ import { AppService } from 'app/services/app.service';
   styleUrls: ['./transaction.component.scss']
 })
 export class TransactionComponent implements OnInit, OnDestroy {
-  @ViewChild('note') note: TransactionNoteComponent;
+  @ViewChild('note', { read: ElementRef, static: true }) note: TransactionNoteComponent;
 
   form: FormGroup;
   transaction: Transaction;

@@ -51,8 +51,8 @@ const cellsStyles = {
   styleUrls: ['./business-report.component.scss']
 })
 export class BusinessReportComponent implements OnInit {
-  @ViewChild('grid', { read: ElementRef }) grid: ElementRef;
-  @ViewChild('table', {read: ElementRef}) table: ElementRef;
+  @ViewChild('grid', { read: ElementRef, static: true }) grid: ElementRef;
+  @ViewChild('table', { read: ElementRef, static: true }) table: ElementRef;
 
   month: Moment;
   reportCategories: ReportCategory[] = [];

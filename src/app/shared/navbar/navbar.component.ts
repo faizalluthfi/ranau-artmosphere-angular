@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit{
     user: User;
     title: String;
 
-    @ViewChild("navbar-cmp") button;
+    @ViewChild("navbar-cmp", { read: ElementRef, static: true }) button;
 
     constructor(
         location:Location,
