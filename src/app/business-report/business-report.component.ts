@@ -110,47 +110,54 @@ export class BusinessReportComponent implements OnInit {
       headerName: 'Tanggal',
       field: 'day_of_month',
       cellClass: 'special-column',
-      pinned: 'left'
+      pinned: 'left',
+      resizable: true
     });
     this.reportCategories.forEach(category => {
       this.columnDefs.push({
         headerName: category.name,
         field: `transactions${category.id}`,
         cellClass: 'text-right',
-        valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+        valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : '',
+        resizable: true
       });
     });
     this.columnDefs.push({
       headerName: 'Total',
       field: 'transactionsTotal',
       cellClass: 'text-right special-column',
-      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : '',
+      resizable: true
     });
     this.materials.forEach(material => {
       this.columnDefs.push({
         headerName: material.name,
         field: `expenses${material.id}`,
         cellClass: 'text-right',
-        valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+        valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : '',
+        resizable: true
       });
     });
     this.columnDefs.push({
       headerName: 'Diskon',
       field: 'discount',
       cellClass: 'text-right',
-      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : '',
+      resizable: true
     });
     this.columnDefs.push({
       headerName: 'Total',
       field: 'expensesTotal',
       cellClass: 'text-right special-column',
-      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : '',
+      resizable: true
     });
     this.columnDefs.push({
       headerName: 'Saldo',
       field: 'balance',
       cellClass: 'text-right special-column',
-      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : ''
+      valueFormatter: data => data.value ? this.decimalPipe.transform(data.value) : '',
+      resizable: true
     });
     this.data = [];
     let totalRow = {
