@@ -8,6 +8,7 @@ export class PaddingPipe implements PipeTransform {
   transform(value: any, options: any): any {
     // Default options
     options.align = options.align || 1;
+    options.width = options.width || 40;
 
     value = '' + value;
     if(value.length > options.width) {
