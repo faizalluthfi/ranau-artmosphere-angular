@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
 import { ROLES } from 'app/references/roles';
 import { CustomValidators } from 'ng2-validation';
 import { AuthService } from 'app/services/auth.service';
-import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-user-form',
@@ -26,7 +25,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   constructor(
     formBuilder: FormBuilder,
-    private appService: AppService,
     private service: UserService,
     private usersService: UsersService,
     private notificationService: NotificationService,
@@ -88,7 +86,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
   private userAfterSave(user: User) {
     this.zone.run(() => {
       if (user) {
-        this.appService.sendToIpc('backup');
         this.notificationService.setNotification(
           `User berhasil ${user.deleted ? 'dihapus' : 'disimpan'}.`,
           'success'

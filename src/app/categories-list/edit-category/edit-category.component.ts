@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { CategoriesService } from '../../services/categories.service';
@@ -7,7 +7,7 @@ import { Category } from '../../classes/category';
 import { NotificationService } from '../../services/notification.service';
 import { ReportCategoriesService } from '../../services/report-categories.service';
 import { ReportCategory } from '../../classes/report-category';
-import { AppService } from 'app/services/app.service';
+import { ServicesInputsComponent } from 'app/services-inputs/services-inputs.component';
 
 @Component({
   selector: 'app-edit-category',
@@ -15,7 +15,7 @@ import { AppService } from 'app/services/app.service';
   styleUrls: ['./edit-category.component.scss']
 })
 export class EditCategoryComponent implements OnInit {
-  @ViewChild('servicesInputs', { read: ElementRef, static: true }) servicesInputs;
+  @ViewChild('servicesInputs', { static: true }) servicesInputs: ServicesInputsComponent;
   category: Category;
   form: FormGroup;
   category_id: number;
@@ -23,7 +23,6 @@ export class EditCategoryComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private appService: AppService,
     private service: CategoryService,
     private categoriesService: CategoriesService,
     private reportCategoriesService: ReportCategoriesService,
@@ -51,7 +50,7 @@ export class EditCategoryComponent implements OnInit {
           this.category = category;
           let services = <FormArray>this.form.controls.services;
           while (services.length > 0) services.removeAt(0);
-          this.category.services.forEach(service =>
+          this.category.services.forEach(() =>
             services.push(this.formBuilder.group({
                 id: [null],
                 name: [null, Validators.required],
@@ -71,7 +70,6 @@ export class EditCategoryComponent implements OnInit {
 
   submit() {
     this.service.updateCategory(this.category.id, this.form.value).tap(() => {
-      this.appService.sendToIpc('backup');
       this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.categoriesService.getCategories();
       this.router.navigate(['..'], {relativeTo: this.route});
@@ -81,7 +79,6 @@ export class EditCategoryComponent implements OnInit {
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus kategori ini?')) {
       this.service.deleteCategory(this.category.id).tap(() => {
-        this.appService.sendToIpc('backup');
         this.notificationService.setNotification('Kategori berhasil dihapus.', 'success');
         this.categoriesService.getCategories();
         this.router.navigate(['..'], {relativeTo: this.route});

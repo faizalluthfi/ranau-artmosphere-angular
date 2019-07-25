@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, NgZone, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Transaction } from '../../classes/transaction';
 import { TransactionService } from '../../services/transaction.service';
@@ -10,7 +10,6 @@ import { Service } from '../../classes/service';
 import { TransactionItem } from '../../classes/transaction-item';
 import { TransactionNoteComponent } from './transaction-note/transaction-note.component';
 import { NotificationService } from '../../services/notification.service';
-import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-transaction',
@@ -18,7 +17,7 @@ import { AppService } from 'app/services/app.service';
   styleUrls: ['./transaction.component.scss']
 })
 export class TransactionComponent implements OnInit, OnDestroy {
-  @ViewChild('note', { read: ElementRef, static: true }) note: TransactionNoteComponent;
+  @ViewChild('note', { static: true }) note: TransactionNoteComponent;
 
   form: FormGroup;
   transaction: Transaction;
@@ -35,7 +34,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private appService: AppService,
     private service: TransactionService,
     private categoriesWithServicesService: CategoriesWithServicesService,
     private notificationService: NotificationService,
@@ -163,7 +161,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
       .tap(result => {
         this.service.getTransaction(this.transaction.id || result.id).then(transaction => {
           this.zone.run(() => {
-            this.appService.sendToIpc('backup');
             this.notificationService.setNotification('Transaksi berhasil disimpan.', 'success');
             if (print) {
               this.note.printNote(transaction);

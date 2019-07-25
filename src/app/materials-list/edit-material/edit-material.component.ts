@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Material } from '../../classes/material';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MaterialService } from '../../services/material.service';
 import { MaterialsService } from '../../services/materials.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
-import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-edit-material',
@@ -18,7 +17,6 @@ export class EditMaterialComponent implements OnInit {
 
   constructor(
     formBuilder: FormBuilder,
-    private appService: AppService,
     private service: MaterialService,
     private materialsService: MaterialsService,
     private notificationService: NotificationService,
@@ -42,7 +40,6 @@ export class EditMaterialComponent implements OnInit {
 
   submit() {
     this.service.updateMaterial(this.material.id, this.form.value).tap(() => {
-      this.appService.sendToIpc('backup');
       this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.materialsService.getMaterials();
       this.router.navigate(['..'], {relativeTo: this.route});
@@ -52,7 +49,6 @@ export class EditMaterialComponent implements OnInit {
   delete() {
     if (window.confirm('Apakah anda yakin akan menghapus bahan ini?')) {
       this.service.deleteMaterial(this.material.id).tap(() => {
-        this.appService.sendToIpc('backup');
         this.notificationService.setNotification('Kategori berhasil dihapus.', 'success');
         this.materialsService.getMaterials();
         this.router.navigate(['..'], {relativeTo: this.route});

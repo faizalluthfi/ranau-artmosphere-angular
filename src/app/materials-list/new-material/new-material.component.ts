@@ -4,7 +4,6 @@ import { MaterialService } from '../../services/material.service';
 import { MaterialsService } from '../../services/materials.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
-import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-new-material',
@@ -16,7 +15,6 @@ export class NewMaterialComponent implements OnInit {
 
   constructor(
     formBuilder: FormBuilder,
-    private appService: AppService,
     private service: MaterialService,
     private materialsService: MaterialsService,
     private notificationService: NotificationService,
@@ -33,7 +31,6 @@ export class NewMaterialComponent implements OnInit {
 
   submit() {
     this.service.createMaterial(this.form.value).tap(() => {
-      this.appService.sendToIpc('backup');
       this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.materialsService.getMaterials();
       this.router.navigate(['..'], {relativeTo: this.route});

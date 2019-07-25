@@ -6,7 +6,6 @@ import { CategoriesService } from '../../services/categories.service';
 import { NotificationService } from '../../services/notification.service';
 import { ReportCategoriesService } from '../../services/report-categories.service';
 import { ReportCategory } from '../../classes/report-category';
-import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-new-category',
@@ -19,7 +18,6 @@ export class NewCategoryComponent implements OnInit {
 
   constructor(
     formBuilder: FormBuilder,
-    private appService: AppService,
     private service: CategoryService,
     private categoriesService: CategoriesService,
     private reportCategoriesService: ReportCategoriesService,
@@ -45,7 +43,6 @@ export class NewCategoryComponent implements OnInit {
 
   submit() {
     this.service.createCategory(this.form.value).tap(() => {
-      this.appService.sendToIpc('backup');
       this.notificationService.setNotification('Kategori berhasil disimpan.', 'success');
       this.categoriesService.getCategories();
       this.router.navigate(['..'], {relativeTo: this.route});

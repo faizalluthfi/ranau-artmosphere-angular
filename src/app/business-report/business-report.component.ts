@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BusinessReportService } from '../services/business-report.service';
 import * as moment from 'moment';
 import 'moment/locale/id';
@@ -51,9 +51,6 @@ const cellsStyles = {
   styleUrls: ['./business-report.component.scss']
 })
 export class BusinessReportComponent implements OnInit {
-  @ViewChild('grid', { read: ElementRef, static: true }) grid: ElementRef;
-  @ViewChild('table', { read: ElementRef, static: true }) table: ElementRef;
-
   month: Moment;
   reportCategories: ReportCategory[] = [];
   materials: Material[] = [];

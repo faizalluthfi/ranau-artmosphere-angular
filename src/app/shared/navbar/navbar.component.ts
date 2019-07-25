@@ -1,6 +1,6 @@
-import { Component, OnInit, Renderer, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, } from '@angular/router';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Component, OnInit, Renderer, ElementRef } from '@angular/core';
+import { Router, NavigationEnd, } from '@angular/router';
+import { Location } from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { User } from 'app/classes/user';
 
@@ -12,13 +12,10 @@ import { User } from 'app/classes/user';
 
 export class NavbarComponent implements OnInit{
     location: Location;
-    private nativeElement: Node;
     private toggleButton;
     private sidebarVisible: boolean;
     user: User;
     title: String;
-
-    @ViewChild("navbar-cmp", { read: ElementRef, static: true }) button;
 
     constructor(
         location:Location,
@@ -28,7 +25,6 @@ export class NavbarComponent implements OnInit{
         private router: Router
     ) {
         this.location = location;
-        this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
     }
 
