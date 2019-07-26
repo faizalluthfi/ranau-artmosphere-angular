@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
       ['error', message => {
         this.notificationService.setNotification(message, 'error');
       }],
+      ['print-success', () => this.notificationService.setNotification('Print berhasil.', 'success')]
     ]);
   }
 }
