@@ -31,7 +31,7 @@
     "chartist": "0.11.3",
     "core-js": "3.1.4",
     "jquery": "3.4.1",
-    "moment": "2.24.0",
+    "moment": "2.29.4",
     "ng2-validation": "^4.2.0",
     "ngx-bootstrap": "^5.1.0",
     "rxjs": "6.5.2",
